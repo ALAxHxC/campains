@@ -12,6 +12,7 @@ import java.util.List;
 
 public abstract class ParentList<T> extends BaseAdapter {
     //testing
+    //testing
     protected final String tag=ParentList.class.getName();
     protected Context context;
     protected List<T> lista;
