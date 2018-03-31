@@ -1,0 +1,2698 @@
+Index: app/src/main/java/ponny/org/democampains/vistas/listas/OximetriasList.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/ponny/org/democampains/vistas/listas/OximetriasList.java	(revision )
++++ app/src/main/java/ponny/org/democampains/vistas/listas/OximetriasList.java	(revision )
+@@ -0,0 +1,62 @@
++package ponny.org.democampains.vistas.listas;
++
++import android.content.Context;
++import android.util.Log;
++import android.view.LayoutInflater;
++import android.view.View;
++import android.view.ViewGroup;
++import android.widget.ImageView;
++import android.widget.TextView;
++
++import java.text.SimpleDateFormat;
++import java.util.List;
++
++import ponny.org.democampains.R;
++import ponny.org.democampains.negocio.modelos.bd.OximetriaRoom;
++import ponny.org.democampains.negocio.modelos.bd.PacienteRoom;
++
++/**
++ * Created by Daniel on 10/03/2018.
++ */
++
++public class OximetriasList extends ParentList<OximetriaRoom> {
++    public static final SimpleDateFormat sdfCompleta = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
++    public OximetriasList(Context context, List<OximetriaRoom> lista) {
++        super(context, lista, OximetriasList.class);
++    }
++
++    @Override
++    protected void irActividad() {
++
++    }
++
++    @Override
++    public long getItemId(int position) {
++        return 0;
++    }
++
++    @Override
++    public View getView(int position, View convertView, ViewGroup parent) {
++        convertView = LayoutInflater.from(context).inflate(R.layout.item_oximetria, null);
++        try{
++
++                final OximetriaRoom oximetriaRoom = lista.get(position);
++                TextView idView = (TextView) convertView.findViewById(R.id.textViewIdItem);
++                TextView pulso = (TextView) convertView.findViewById(R.id.textViewPulsoItem);
++                TextView spo2 = (TextView) convertView.findViewById(R.id.textViewSPO2Item);
++                TextView pi = (TextView) convertView.findViewById(R.id.textViewPIItem);
++               idView.setText(sdfCompleta.format(oximetriaRoom.getDatatime()));
++            //    pulso.setText(oximetriaRoom.getPulse() + "");
++              //  pi.setText(oximetriaRoom.getPi() + "");
++               // spo2.setText(oximetriaRoom.getSpo2() + "");
++
++//            convertView.setOnClickListener(clickListener(pacienteRoom));
++
++        }catch (Exception ex)
++        {
++            Log.println(Log.ASSERT,super.tag,ex.getMessage());
++            ex.printStackTrace();
++        }
++        return convertView;
++    }
++}
+Index: app/src/main/res/layout/item_oximetria.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/item_oximetria.xml	(revision )
++++ app/src/main/res/layout/item_oximetria.xml	(revision )
+@@ -0,0 +1,135 @@
++<?xml version="1.0" encoding="utf-8"?>
++<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    android:orientation="vertical" android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:background="#ffffff">
++    <LinearLayout
++        android:orientation="horizontal"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content">
++        <Space
++            android:layout_width="5dp"
++            android:layout_height="10dp"/>
++        <TextView
++            android:text="@string/fechaPulso"
++            android:layout_width="105dp"
++            android:layout_height="wrap_content"
++            android:id="@+id/txtFechaTomaPulso"
++            android:textColor="@color/TitleLetras"
++            android:fontFamily="sans-serif"
++            android:textSize="16dp" />
++
++        <TextView
++            android:id="@+id/textViewIdItem"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:text="TextView"
++            android:textColor="@color/TitleLetras"
++            android:layout_weight="1"
++            android:textAlignment="center"
++            android:textSize="16dp" />
++    </LinearLayout>
++
++    <LinearLayout
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:orientation="horizontal">
++
++        <ImageView
++            android:id="@+id/imageViewIsEmergencia"
++            android:layout_width="50dp"
++            android:layout_height="68dp"
++            app:srcCompat="@drawable/profile" />
++
++        <LinearLayout
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:layout_weight="1"
++            android:orientation="vertical">
++
++            <LinearLayout
++                android:layout_width="match_parent"
++                android:layout_height="match_parent"
++                android:layout_weight="1"
++                android:orientation="horizontal">
++
++                <TextView
++                    android:layout_width="match_parent"
++                    android:layout_height="wrap_content"
++                    android:textColor="@color/TitleSubTitle"
++                    android:layout_weight="1"
++                    android:text="@string/puslo"
++                    android:fontFamily="sans-serif"
++                    android:textStyle="italic" />
++
++                <TextView
++                    android:id="@+id/textViewPulsoItem"
++                    android:layout_width="match_parent"
++                    android:layout_height="wrap_content"
++                    android:background="@color/colorPulso"
++                    android:textColor="@color/white_opaque"
++                    android:layout_weight="1"
++                    android:text="TextView" />
++            </LinearLayout>
++
++            <LinearLayout
++                android:layout_width="match_parent"
++                android:layout_height="match_parent"
++                android:layout_weight="1"
++                android:orientation="horizontal">
++
++                <TextView
++                    android:layout_width="match_parent"
++                    android:layout_height="wrap_content"
++                    android:layout_weight="1"
++                    android:text="@string/SPO2"
++                    android:textColor="@color/TitleSubTitle"
++                    android:textAlignment="textStart"
++                    android:fontFamily="sans-serif"
++                    android:textStyle="italic" />
++
++                <TextView
++                    android:id="@+id/textViewSPO2Item"
++                    android:layout_width="match_parent"
++                    android:layout_height="wrap_content"
++                    android:textColor="@color/white_opaque"
++                    android:background="@color/coloSPO2"
++                    android:layout_weight="1"
++                    android:text="TextView" />
++            </LinearLayout>
++
++            <LinearLayout
++                android:layout_width="match_parent"
++                android:layout_height="match_parent"
++                android:layout_weight="1"
++                android:orientation="horizontal">
++
++                <TextView
++                    android:id="@+id/textView8"
++                    android:layout_width="match_parent"
++                    android:layout_height="wrap_content"
++                    android:layout_weight="1"
++                    android:text="@string/PI"
++                    android:textColor="@color/TitleSubTitle"
++                    android:fontFamily="sans-serif"
++                    android:textStyle="italic"
++                    android:textAllCaps="false"
++                    android:textAlignment="textStart" />
++
++                <TextView
++                    android:id="@+id/textViewPIItem"
++                    android:layout_width="match_parent"
++                    android:layout_height="wrap_content"
++                    android:layout_weight="1"
++                    android:textColor="@color/white_opaque"
++                    android:background="@color/PI"
++
++                    android:text="TextView" />
++            </LinearLayout>
++
++        </LinearLayout>
++
++    </LinearLayout>
++
++</LinearLayout>
+\ No newline at end of file
+Index: app/src/main/java/ponny/org/democampains/vistas/OximeterList.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/ponny/org/democampains/vistas/OximeterList.java	(revision )
++++ app/src/main/java/ponny/org/democampains/vistas/OximeterList.java	(revision )
+@@ -0,0 +1,41 @@
++package ponny.org.democampains.vistas;
++
++import android.content.Intent;
++import android.support.v7.app.AppCompatActivity;
++import android.os.Bundle;
++import android.util.Log;
++import android.view.View;
++import android.widget.ListView;
++
++import ponny.org.democampains.R;
++import ponny.org.democampains.negocio.controlador.OximetriaController;
++import ponny.org.democampains.negocio.modelos.bd.PacienteRoom;
++import ponny.org.democampains.vistas.listas.OximetriasList;
++
++public class OximeterList extends AppCompatActivity {
++    private ListView listView;
++    private View parentView;
++   private PacienteRoom pacienteRoom;
++   private OximetriaController oximetriaController;
++    @Override
++    protected void onCreate(Bundle savedInstanceState) {
++        super.onCreate(savedInstanceState);
++        setContentView(R.layout.activity_oximeter_list);
++        Intent intent = this.getIntent();
++        Bundle bundle = intent.getExtras();
++
++       // parentView = findViewById(R.id.contPefil);
++
++      pacienteRoom = (PacienteRoom) bundle.getSerializable(getString(R.string.paciente_rom));
++        listView=(ListView)findViewById(R.id.listOximetrias);
++        try {
++            oximetriaController=new OximetriaController(this,listView);
++            oximetriaController.mostrarListaToda(pacienteRoom.getIdentificacion());
++        }
++      catch (Exception ex){
++            ex.printStackTrace();
++          Log.println(Log.ASSERT,"sql",ex.getMessage());
++      }
++
++    }
++}
+Index: app/src/main/java/ponny/org/democampains/vistas/popup/PopRegistro.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/ponny/org/democampains/vistas/popup/PopRegistro.java	(revision )
++++ app/src/main/java/ponny/org/democampains/vistas/popup/PopRegistro.java	(revision )
+@@ -0,0 +1,65 @@
++package ponny.org.democampains.vistas.popup;
++
++import android.app.Dialog;
++import android.content.Context;
++import android.util.Log;
++import android.view.View;
++import android.widget.AutoCompleteTextView;
++import android.widget.Button;
++import android.widget.EditText;
++import android.widget.TextView;
++
++import ponny.org.democampains.R;
++import ponny.org.democampains.negocio.controlador.OximetriaController;
++import ponny.org.democampains.negocio.modelos.bd.OximetriaRoom;
++import ponny.org.democampains.negocio.modelos.bd.PacienteRoom;
++
++/**
++ * Created by Daniel on 10/03/2018.
++ */
++
++public class PopRegistro extends Popup {
++private OximetriaRoom oximetriaRoom;
++private PacienteRoom pacienteRoom;
++EditText nombres,descripccion,identificacion;
++private OximetriaController oximetriaController;
++Button guardar;
++    private Dialog dialog;
++    public PopRegistro(Context context,OximetriaRoom oximetriaRoom,PacienteRoom pacienteRoom) {
++        super(context);
++        this.oximetriaController=new OximetriaController(context,null);
++        this.oximetriaRoom=oximetriaRoom;
++        this.pacienteRoom=pacienteRoom;
++    }
++
++    @Override
++    public void registrar(View view) {
++        try {
++            oximetriaRoom.setAnotaciones(descripccion.getText().toString() + "");
++            oximetriaRoom.setIdPaciente(pacienteRoom.getIdentificacion());
++            oximetriaController.insertar(oximetriaRoom, view, dialog);
++        }catch (Exception ex){
++            ex.printStackTrace();
++            Log.println(Log.ASSERT,"sql",ex.getMessage());
++
++        }
++        }
++    public void dialogoRegistroPaciente(final View view) {
++        dialog = super.generarDialogo(R.layout.popup_registro_oximetria);
++        identificacion=(AutoCompleteTextView) dialog.findViewById(R.id.id_paciente_registro);
++        identificacion.setText(pacienteRoom.getIdentificacion());
++        nombres = (AutoCompleteTextView)dialog.findViewById(R.id.id_nombre_registro);
++        nombres.setText(pacienteRoom.getNombres()+" "+pacienteRoom.getApellidos());
++        descripccion = (AutoCompleteTextView)dialog.findViewById(R.id.anotaciones_registro);
++        guardar=(Button)dialog.findViewById(R.id.btnoxi);
++        guardar.setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(View v) {
++                registrar(view);
++            }
++        });
++
++        dialog.show();
++    }
++
++}
+Index: app/src/main/res/layout/popup_registro_oximetria.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/popup_registro_oximetria.xml	(revision )
++++ app/src/main/res/layout/popup_registro_oximetria.xml	(revision )
+@@ -0,0 +1,118 @@
++<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:gravity="center_horizontal"
++    android:orientation="vertical"
++    android:paddingBottom="@dimen/activity_vertical_margin"
++    android:paddingLeft="@dimen/activity_horizontal_margin"
++    android:paddingRight="@dimen/activity_horizontal_margin"
++    android:paddingTop="@dimen/activity_vertical_margin"
++    tools:context="ponny.org.democampains.LoginActivity">
++
++    <!-- Login progress -->
++    <ProgressBar
++        android:id="@+id/login_progress"
++        style="?android:attr/progressBarStyleLarge"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginBottom="8dp"
++        android:visibility="gone" />
++
++    <ScrollView
++        android:id="@+id/login_form"
++        android:layout_width="match_parent"
++        android:layout_height="match_parent">
++
++        <LinearLayout
++            android:id="@+id/email_login_form"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:orientation="vertical">
++
++            <TextView
++                android:id="@+id/textView"
++                style="@style/editTextPaciente"
++                android:layout_width="match_parent"
++                android:layout_height="wrap_content"
++                android:text="@string/guardar_registros" />
++
++            <android.support.design.widget.TextInputLayout
++                android:layout_width="match_parent"
++                android:layout_height="match_parent">
++
++                <LinearLayout
++                    android:layout_width="match_parent"
++                    android:layout_height="match_parent"
++                    android:orientation="horizontal">
++
++                    <AutoCompleteTextView
++                        android:id="@+id/id_paciente_registro"
++                        android:layout_width="match_parent"
++                        android:layout_height="wrap_content"
++                        android:layout_weight="1"
++                        android:hint="@string/identificacion"
++                        android:maxLines="1"
++                        android:singleLine="true" />
++                </LinearLayout>
++
++            </android.support.design.widget.TextInputLayout>
++
++            <android.support.design.widget.TextInputLayout
++                android:layout_width="match_parent"
++                android:layout_height="wrap_content">
++
++                <AutoCompleteTextView
++                    android:id="@+id/id_nombre_registro"
++                    android:layout_width="match_parent"
++                    android:layout_height="wrap_content"
++                    android:hint="@string/nombres"
++
++                    android:maxLines="1"
++                    android:singleLine="true" />
++
++            </android.support.design.widget.TextInputLayout>
++
++            <android.support.design.widget.TextInputLayout
++                android:layout_width="match_parent"
++                android:layout_height="match_parent">
++
++            </android.support.design.widget.TextInputLayout>
++
++            <android.support.design.widget.TextInputLayout
++                android:layout_width="match_parent"
++                android:layout_height="match_parent">
++
++                <LinearLayout
++                    android:layout_width="match_parent"
++                    android:layout_height="match_parent"
++                    android:orientation="horizontal">
++
++                    <AutoCompleteTextView
++                        android:id="@+id/anotaciones_registro"
++                        style="@style/editText"
++                        android:layout_width="match_parent"
++                        android:layout_height="wrap_content"
++                        android:gravity="top|left"
++                        android:hint="@string/anotaciones"
++                        android:inputType="textMultiLine"
++                        android:lines="8"
++                        android:maxLines="10"
++                        android:minLines="6"
++                        android:scrollbars="vertical"
++                        android:singleLine="true" />
++                </LinearLayout>
++
++            </android.support.design.widget.TextInputLayout>
++
++            <Button
++                android:id="@+id/btnoxi"
++                style="@style/ButtonRegistrarme"
++                android:layout_width="match_parent"
++                android:layout_height="wrap_content"
++                android:layout_marginTop="16dp"
++                android:layout_weight="1"
++                android:text="@string/action_sign_in" />
++        </LinearLayout>
++    </ScrollView>
++</LinearLayout>
+Index: app/src/main/res/layout/activity_oximeter_list.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_oximeter_list.xml	(revision )
++++ app/src/main/res/layout/activity_oximeter_list.xml	(revision )
+@@ -0,0 +1,20 @@
++<?xml version="1.0" encoding="utf-8"?>
++<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    tools:context="ponny.org.democampains.vistas.OximeterList">
++
++    <ListView
++        android:id="@+id/listOximetrias"
++        android:layout_width="match_parent"
++        android:layout_height="match_parent"
++        android:layout_marginBottom="8dp"
++        android:layout_marginEnd="8dp"
++        android:layout_marginStart="8dp"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++</android.support.constraint.ConstraintLayout>
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/workspace.xml	(date 1520718401000)
++++ .idea/workspace.xml	(revision )
+@@ -9,24 +9,26 @@
+   </component>
+   <component name="AndroidLogFilters">
+     <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
+-    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
++    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
+     <option name="TOOL_WINDOW_REGEXP_FILTER" value="false" />
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="717a6277-c183-4e0f-8710-00c15eb437d0" name="Default" comment="">
+-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/negocio/session/Oximetria.java" />
+-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/values/ids.xml" />
+-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/servicio/ServiOximeter.java" afterPath="" />
++      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-v24/pulsook.PNG" />
++      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/OximeterList.java" />
++      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/listas/OximetriasList.java" />
++      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/popup/PopRegistro.java" />
++      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_oximeter_list.xml" />
++      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_oximetria.xml" />
++      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/popup_registro_oximetria.xml" />
+       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/negocio/session/Usuario.java" afterPath="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/negocio/session/Usuario.java" />
+-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/servicio/ControlerBLE.java" afterPath="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/servicio/ControlerBLE.java" />
+-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/OximeterView.java" afterPath="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/OximeterView.java" />
++      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
++      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/negocio/controlador/OximetriaController.java" afterPath="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/negocio/controlador/OximetriaController.java" />
++      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/negocio/session/Oximetria.java" afterPath="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/negocio/session/Oximetria.java" />
++      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/PerfilPaciente.java" afterPath="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/PerfilPaciente.java" />
+       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/VistaPaciente.java" afterPath="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/VistaPaciente.java" />
+-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_oximeter_view.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_oximeter_view.xml" />
+-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_vista_paciente.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_vista_paciente.xml" />
+       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
+     </list>
+     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+     <option name="TRACKING_ENABLED" value="true" />
+@@ -53,60 +55,82 @@
+   </component>
+   <component name="FileEditorManager">
+     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+-      <file leaf-file-name="OximeterView.java" pinned="false" current-in-tab="false">
+-        <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/OximeterView.java">
++      <file leaf-file-name="OximetriaController.java" pinned="false" current-in-tab="false">
++        <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/negocio/controlador/OximetriaController.java">
+           <provider selected="true" editor-type-id="text-editor">
+-            <state relative-caret-position="178">
+-              <caret line="181" column="89" lean-forward="false" selection-start-line="181" selection-start-column="89" selection-end-line="181" selection-end-column="89" />
++            <state relative-caret-position="157">
++              <caret line="102" column="64" lean-forward="false" selection-start-line="102" selection-start-column="64" selection-end-line="102" selection-end-column="64" />
+               <folding>
+-                <element signature="e#1968#2000#0" expanded="true" />
+-                <element signature="e#2855#2887#0" expanded="true" />
++                <element signature="imports" expanded="true" />
+               </folding>
+             </state>
+           </provider>
+         </entry>
+       </file>
+-      <file leaf-file-name="PerfilPaciente.java" pinned="false" current-in-tab="false">
+-        <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/PerfilPaciente.java">
++      <file leaf-file-name="OximetriaDao.java" pinned="false" current-in-tab="false">
++        <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/negocio/dao/OximetriaDao.java">
+           <provider selected="true" editor-type-id="text-editor">
+-            <state relative-caret-position="187">
+-              <caret line="36" column="68" lean-forward="false" selection-start-line="36" selection-start-column="68" selection-end-line="36" selection-end-column="68" />
++            <state relative-caret-position="136">
++              <caret line="15" column="4" lean-forward="false" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="4" />
+               <folding />
+             </state>
+           </provider>
+         </entry>
+       </file>
+-      <file leaf-file-name="activity_perfil_paciente.xml" pinned="false" current-in-tab="false">
+-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_perfil_paciente.xml">
+-          <provider selected="true" editor-type-id="android-designer2">
+-            <state />
++      <file leaf-file-name="Oximetria.java" pinned="false" current-in-tab="false">
++        <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/negocio/session/Oximetria.java">
++          <provider selected="true" editor-type-id="text-editor">
++            <state relative-caret-position="242">
++              <caret line="45" column="41" lean-forward="false" selection-start-line="45" selection-start-column="41" selection-end-line="45" selection-end-column="41" />
++              <folding>
++                <element signature="imports" expanded="true" />
++              </folding>
++            </state>
+           </provider>
+-          <provider editor-type-id="text-editor">
+-            <state relative-caret-position="68">
+-              <caret line="22" column="42" lean-forward="false" selection-start-line="22" selection-start-column="42" selection-end-line="22" selection-end-column="42" />
++        </entry>
++      </file>
++      <file leaf-file-name="OximetriasList.java" pinned="false" current-in-tab="false">
++        <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/listas/OximetriasList.java">
++          <provider selected="true" editor-type-id="text-editor">
++            <state relative-caret-position="310">
++              <caret line="51" column="0" lean-forward="false" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
++              <folding>
++                <element signature="imports" expanded="true" />
++                <element signature="e#935#936#0" expanded="true" />
++                <element signature="e#959#960#0" expanded="true" />
++              </folding>
++            </state>
++          </provider>
++        </entry>
++      </file>
++      <file leaf-file-name="OximetriaDao_Impl.java" pinned="false" current-in-tab="false">
++        <entry file="file://$PROJECT_DIR$/app/build/generated/source/apt/debug/ponny/org/democampains/negocio/dao/OximetriaDao_Impl.java">
++          <provider selected="true" editor-type-id="text-editor">
++            <state relative-caret-position="106">
++              <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+               <folding />
+             </state>
+           </provider>
+         </entry>
+       </file>
+-      <file leaf-file-name="activity_vista_paciente.xml" pinned="false" current-in-tab="false">
+-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_vista_paciente.xml">
++      <file leaf-file-name="activity_oximeter_list.xml" pinned="false" current-in-tab="false">
++        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_oximeter_list.xml">
+           <provider selected="true" editor-type-id="android-designer2">
+             <state />
+           </provider>
+           <provider editor-type-id="text-editor">
+-            <state relative-caret-position="166">
+-              <caret line="124" column="39" lean-forward="false" selection-start-line="124" selection-start-column="39" selection-end-line="124" selection-end-column="39" />
++            <state relative-caret-position="0">
++              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+               <folding />
+             </state>
+           </provider>
+         </entry>
+       </file>
+-      <file leaf-file-name="styles.xml" pinned="false" current-in-tab="false">
+-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
++      <file leaf-file-name="TelemedApp.java" pinned="false" current-in-tab="false">
++        <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/TelemedApp.java">
+           <provider selected="true" editor-type-id="text-editor">
+-            <state relative-caret-position="170">
+-              <caret line="31" column="42" lean-forward="false" selection-start-line="31" selection-start-column="17" selection-end-line="31" selection-end-column="42" />
++            <state relative-caret-position="151">
++              <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+               <folding />
+             </state>
+           </provider>
+@@ -115,43 +139,29 @@
+       <file leaf-file-name="LoginActivity.java" pinned="false" current-in-tab="false">
+         <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/LoginActivity.java">
+           <provider selected="true" editor-type-id="text-editor">
+-            <state relative-caret-position="440">
++            <state relative-caret-position="206">
+               <caret line="116" column="48" lean-forward="false" selection-start-line="116" selection-start-column="48" selection-end-line="116" selection-end-column="48" />
+               <folding />
+             </state>
+           </provider>
+         </entry>
+       </file>
+-      <file leaf-file-name="PacienteRoom.java" pinned="false" current-in-tab="false">
+-        <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/negocio/modelos/bd/PacienteRoom.java">
+-          <provider selected="true" editor-type-id="text-editor">
+-            <state relative-caret-position="-68">
+-              <caret line="13" column="45" lean-forward="false" selection-start-line="13" selection-start-column="45" selection-end-line="13" selection-end-column="45" />
+-              <folding />
+-            </state>
+-          </provider>
+-        </entry>
+-      </file>
+       <file leaf-file-name="VistaPaciente.java" pinned="false" current-in-tab="false">
+         <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/VistaPaciente.java">
+           <provider selected="true" editor-type-id="text-editor">
+-            <state relative-caret-position="153">
+-              <caret line="123" column="31" lean-forward="false" selection-start-line="123" selection-start-column="31" selection-end-line="123" selection-end-column="31" />
+-              <folding>
+-                <element signature="e#2555#2587#0" expanded="true" />
+-              </folding>
++            <state relative-caret-position="183">
++              <caret line="153" column="51" lean-forward="false" selection-start-line="153" selection-start-column="51" selection-end-line="153" selection-end-column="51" />
++              <folding />
+             </state>
+           </provider>
+         </entry>
+       </file>
+-      <file leaf-file-name="Oximetria.java" pinned="false" current-in-tab="true">
+-        <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/negocio/session/Oximetria.java">
++      <file leaf-file-name="PerfilPaciente.java" pinned="false" current-in-tab="true">
++        <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/PerfilPaciente.java">
+           <provider selected="true" editor-type-id="text-editor">
+-            <state relative-caret-position="567">
+-              <caret line="53" column="23" lean-forward="false" selection-start-line="53" selection-start-column="23" selection-end-line="53" selection-end-column="23" />
+-              <folding>
+-                <element signature="imports" expanded="true" />
+-              </folding>
++            <state relative-caret-position="-301">
++              <caret line="57" column="0" lean-forward="false" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
++              <folding />
+             </state>
+           </provider>
+         </entry>
+@@ -163,8 +173,8 @@
+       <list>
+         <option value="resourceFile" />
+         <option value="Interface" />
+-        <option value="Class" />
+         <option value="valueResourceFile" />
++        <option value="Class" />
+       </list>
+     </option>
+   </component>
+@@ -1908,14 +1918,6 @@
+   <component name="IdeDocumentHistory">
+     <option name="CHANGED_PATHS">
+       <list>
+-        <option value="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/popup/Popup.java" />
+-        <option value="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/negocio/modelos/bd/Paciente.java" />
+-        <option value="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/negocio/modelos/MyDatabase.java" />
+-        <option value="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/negocio/modelos/bd/User.java" />
+-        <option value="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/negocio/modelos/bd/UserDao.java" />
+-        <option value="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/negocio/modelos/bd/PacienteDao.java" />
+-        <option value="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/negocio/modelos/bd/AppDatabase.java" />
+-        <option value="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/TelemedApp.java" />
+         <option value="$PROJECT_DIR$/app/src/main/res/layout/content_main.xml" />
+         <option value="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/popup/PopPaciente.java" />
+         <option value="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/negocio/modelos/bd/PacienteRoom.java" />
+@@ -1939,13 +1941,11 @@
+         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_perfil_paciente.xml" />
+         <option value="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/dispositivos/OximeterActivity.java" />
+         <option value="$PROJECT_DIR$/app/src/main/res/layout/content_perfil_paciente.xml" />
+-        <option value="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/negocio/controlador/PacienteController.java" />
+         <option value="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/servicio/BluetoothLeService.java" />
+         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+         <option value="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/servicio/SampleGattAttributes.java" />
+         <option value="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/servicio/ServiOximeter.java" />
+         <option value="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/popup/Mensajes.java" />
+-        <option value="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/PerfilPaciente.java" />
+         <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
+         <option value="$PROJECT_DIR$/build.gradle" />
+         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+@@ -1956,9 +1956,19 @@
+         <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
+         <option value="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/servicio/ControlerBLE.java" />
+         <option value="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/OximeterView.java" />
+-        <option value="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/VistaPaciente.java" />
+         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_vista_paciente.xml" />
++        <option value="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/negocio/controlador/PacienteController.java" />
++        <option value="$PROJECT_DIR$/app/src/main/res/layout/popup_registro_oximetria.xml" />
++        <option value="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/popup/PopRegistro.java" />
++        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_oximeter_list.xml" />
++        <option value="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/popup/OximeterList.java" />
++        <option value="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/OximeterList.java" />
++        <option value="$PROJECT_DIR$/app/src/main/res/layout/item_oximetria.xml" />
++        <option value="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/negocio/controlador/OximetriaController.java" />
+         <option value="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/negocio/session/Oximetria.java" />
++        <option value="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/listas/OximetriasList.java" />
++        <option value="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/VistaPaciente.java" />
++        <option value="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/PerfilPaciente.java" />
+       </list>
+     </option>
+   </component>
+@@ -1984,8 +1994,7 @@
+       <foldersAlwaysOnTop value="true" />
+     </navigator>
+     <panes>
+-      <pane id="Scope" />
+-      <pane id="ProjectPane" />
++      <pane id="PackagesPane" />
+       <pane id="AndroidView">
+         <subPane>
+           <PATH>
+@@ -2026,7 +2035,7 @@
+               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidResFolderNode" />
+             </PATH_ELEMENT>
+             <PATH_ELEMENT>
+-              <option name="myItemId" value="layout" />
++              <option name="myItemId" value="mipmap" />
+               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidResFolderTypeNode" />
+             </PATH_ELEMENT>
+           </PATH>
+@@ -2044,7 +2053,7 @@
+               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidResFolderNode" />
+             </PATH_ELEMENT>
+             <PATH_ELEMENT>
+-              <option name="myItemId" value="drawable" />
++              <option name="myItemId" value="menu" />
+               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidResFolderTypeNode" />
+             </PATH_ELEMENT>
+           </PATH>
+@@ -2058,26 +2067,12 @@
+               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+             </PATH_ELEMENT>
+             <PATH_ELEMENT>
+-              <option name="myItemId" value="java" />
+-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
++              <option name="myItemId" value="res" />
++              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidResFolderNode" />
+             </PATH_ELEMENT>
+-          </PATH>
+-          <PATH>
+             <PATH_ELEMENT>
+-              <option name="myItemId" value="Nativo" />
+-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+-            </PATH_ELEMENT>
+-            <PATH_ELEMENT>
+-              <option name="myItemId" value="app" />
+-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+-            </PATH_ELEMENT>
+-            <PATH_ELEMENT>
+-              <option name="myItemId" value="java" />
+-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
+-            </PATH_ELEMENT>
+-            <PATH_ELEMENT>
+-              <option name="myItemId" value="democampains" />
+-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
++              <option name="myItemId" value="layout" />
++              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidResFolderTypeNode" />
+             </PATH_ELEMENT>
+           </PATH>
+           <PATH>
+@@ -2093,14 +2088,6 @@
+               <option name="myItemId" value="java" />
+               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
+             </PATH_ELEMENT>
+-            <PATH_ELEMENT>
+-              <option name="myItemId" value="democampains" />
+-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
+-            </PATH_ELEMENT>
+-            <PATH_ELEMENT>
+-              <option name="myItemId" value="servicio" />
+-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+-            </PATH_ELEMENT>
+           </PATH>
+           <PATH>
+             <PATH_ELEMENT>
+@@ -2119,14 +2106,6 @@
+               <option name="myItemId" value="democampains" />
+               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
+             </PATH_ELEMENT>
+-            <PATH_ELEMENT>
+-              <option name="myItemId" value="negocio" />
+-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+-            </PATH_ELEMENT>
+-            <PATH_ELEMENT>
+-              <option name="myItemId" value="session" />
+-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+-            </PATH_ELEMENT>
+           </PATH>
+           <PATH>
+             <PATH_ELEMENT>
+@@ -2146,7 +2125,7 @@
+               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
+             </PATH_ELEMENT>
+             <PATH_ELEMENT>
+-              <option name="myItemId" value="negocio" />
++              <option name="myItemId" value="vistas" />
+               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+             </PATH_ELEMENT>
+           </PATH>
+@@ -2159,15 +2138,12 @@
+               <option name="myItemId" value="app" />
+               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+             </PATH_ELEMENT>
+-            <PATH_ELEMENT>
+-              <option name="myItemId" value="manifests" />
+-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidManifestsGroupNode" />
+-            </PATH_ELEMENT>
+           </PATH>
+         </subPane>
+       </pane>
+       <pane id="Scratches" />
+-      <pane id="PackagesPane" />
++      <pane id="ProjectPane" />
++      <pane id="Scope" />
+     </panes>
+   </component>
+   <component name="PropertiesComponent">
+@@ -2179,12 +2155,14 @@
+     <property name="last_opened_file_path" value="$PROJECT_DIR$/app/libs/activeandroid-3.1-beta.jar" />
+     <property name="android.profiler.active" value="true" />
+     <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/drawable" />
++    <property name="ChangesBrowser.SHOW_FLATTEN" value="true" />
+   </component>
+   <component name="RecentsManager">
+     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+       <recent name="ponny.org.democampains" />
+     </key>
+     <key name="android.template.packageName">
++      <recent name="ponny.org.democampains.vistas.popup" />
+       <recent name="ponny.org.democampains.vistas.dispositivos" />
+       <recent name="ponny.org.democampains.vistas" />
+     </key>
+@@ -2195,6 +2173,7 @@
+       <recent name="ponny.org.democampains.servicio" />
+     </key>
+     <key name="CopyFile.RECENT_KEYS">
++      <recent name="C:\Users\Daniel\Downloads\Android\Android\Nativo\app\src\main\res\drawable-v24" />
+       <recent name="C:\Users\Daniel\Downloads\Android\Android\Nativo\app\src\main\res\values-v21" />
+       <recent name="C:\Users\Daniel\Downloads\Android\Android\Nativo\app\src\main\res\drawable" />
+       <recent name="C:\Users\Daniel\Documents\Monitora\Demos\Nativo\app\src\main\res\drawable" />
+@@ -2284,7 +2263,7 @@
+       <option name="ACTIVITY_CLASS" value="" />
+       <method>
+         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1520718388365" />
++        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1520730243130" />
+       </method>
+     </configuration>
+     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
+@@ -2332,7 +2311,7 @@
+       </Profilers>
+       <method>
+         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1520718388365" />
++        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1520730243130" />
+       </method>
+     </configuration>
+     <configuration default="true" type="Application" factoryName="Application">
+@@ -2515,7 +2494,7 @@
+       <option name="ACTIVITY_CLASS" value="" />
+       <method>
+         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1520718388366" />
++        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1520730243132" />
+       </method>
+     </configuration>
+     <list size="1">
+@@ -2603,7 +2582,14 @@
+       <option name="project" value="LOCAL" />
+       <updated>1520708201182</updated>
+     </task>
+-    <option name="localTasksCounter" value="8" />
++    <task id="LOCAL-00008" summary="BLE">
++      <created>1520718401818</created>
++      <option name="number" value="00008" />
++      <option name="presentableId" value="LOCAL-00008" />
++      <option name="project" value="LOCAL" />
++      <updated>1520718401818</updated>
++    </task>
++    <option name="localTasksCounter" value="9" />
+     <servers />
+   </component>
+   <component name="TodoView">
+@@ -2616,31 +2602,30 @@
+     </todo-panel>
+   </component>
+   <component name="ToolWindowManager">
+-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
++    <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
+     <layout>
+       <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40273038" sideWeight="0.5151286" order="7" side_tool="true" content_ui="tabs" />
+-      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14334472" sideWeight="0.48184568" order="7" side_tool="false" content_ui="tabs" />
+-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+-      <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32935154" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32935154" sideWeight="0.49394855" order="7" side_tool="false" content_ui="tabs" />
++      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32935154" sideWeight="0.49092284" order="7" side_tool="false" content_ui="tabs" />
++      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
++      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.86006826" sideWeight="0.4409985" order="7" side_tool="true" content_ui="tabs" />
+       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.43856657" sideWeight="0.4969743" order="2" side_tool="false" content_ui="tabs" />
+       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32935154" sideWeight="0.48940998" order="7" side_tool="false" content_ui="tabs" />
++      <window_info id="Logcat" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3771331" sideWeight="0.5590015" order="7" side_tool="false" content_ui="tabs" />
+       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
++      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40273038" sideWeight="0.5181543" order="7" side_tool="true" content_ui="tabs" />
+-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24659607" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32935154" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
++      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
++      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24659607" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
++      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
++      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
++      <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+@@ -2649,6 +2634,7 @@
+       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
++      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32935154" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+     </layout>
+     <layout-to-restore>
+       <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+@@ -2699,115 +2685,6 @@
+     <watches-manager />
+   </component>
+   <component name="editorHistoryManager">
+-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_main.xml">
+-      <provider selected="true" editor-type-id="android-designer2">
+-        <state />
+-      </provider>
+-      <provider editor-type-id="text-editor">
+-        <state relative-caret-position="0">
+-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+-        </state>
+-      </provider>
+-    </entry>
+-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/nav_header_main.xml">
+-      <provider editor-type-id="android-designer2">
+-        <state />
+-      </provider>
+-      <provider selected="true" editor-type-id="text-editor">
+-        <state relative-caret-position="0">
+-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+-        </state>
+-      </provider>
+-    </entry>
+-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/item_paciente.xml">
+-      <provider selected="true" editor-type-id="android-designer2">
+-        <state />
+-      </provider>
+-      <provider editor-type-id="text-editor">
+-        <state relative-caret-position="952">
+-          <caret line="56" column="62" lean-forward="false" selection-start-line="56" selection-start-column="62" selection-end-line="56" selection-end-column="62" />
+-        </state>
+-      </provider>
+-    </entry>
+-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+-      <provider editor-type-id="android-designer2">
+-        <state />
+-      </provider>
+-      <provider selected="true" editor-type-id="text-editor">
+-        <state relative-caret-position="333">
+-          <caret line="21" column="49" lean-forward="false" selection-start-line="21" selection-start-column="34" selection-end-line="21" selection-end-column="49" />
+-        </state>
+-      </provider>
+-    </entry>
+-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/app_bar_main.xml">
+-      <provider selected="true" editor-type-id="android-designer2">
+-        <state />
+-      </provider>
+-      <provider editor-type-id="text-editor">
+-        <state relative-caret-position="0">
+-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+-        </state>
+-      </provider>
+-    </entry>
+-    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/navigation.xml">
+-      <provider selected="true" editor-type-id="android-designer2">
+-        <state />
+-      </provider>
+-      <provider editor-type-id="text-editor">
+-        <state relative-caret-position="0">
+-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+-        </state>
+-      </provider>
+-    </entry>
+-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/negocio/manager/AppDatabase.java">
+-      <provider selected="true" editor-type-id="text-editor">
+-        <state relative-caret-position="204">
+-          <caret line="18" column="48" lean-forward="false" selection-start-line="18" selection-start-column="48" selection-end-line="18" selection-end-column="48" />
+-          <folding>
+-            <element signature="imports" expanded="false" />
+-          </folding>
+-        </state>
+-      </provider>
+-    </entry>
+-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/popup_registro_paciente.xml">
+-      <provider selected="true" editor-type-id="android-designer2">
+-        <state />
+-      </provider>
+-      <provider editor-type-id="text-editor">
+-        <state relative-caret-position="265">
+-          <caret line="99" column="23" lean-forward="false" selection-start-line="99" selection-start-column="23" selection-end-line="101" selection-end-column="44" />
+-        </state>
+-      </provider>
+-    </entry>
+-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml">
+-      <provider selected="true" editor-type-id="android-designer2">
+-        <state />
+-      </provider>
+-      <provider editor-type-id="text-editor">
+-        <state relative-caret-position="167">
+-          <caret line="22" column="20" lean-forward="false" selection-start-line="22" selection-start-column="20" selection-end-line="22" selection-end-column="20" />
+-        </state>
+-      </provider>
+-    </entry>
+-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/negocio/dao/PacienteDao.java">
+-      <provider selected="true" editor-type-id="text-editor">
+-        <state relative-caret-position="323">
+-          <caret line="27" column="35" lean-forward="false" selection-start-line="27" selection-start-column="35" selection-end-line="27" selection-end-column="35" />
+-        </state>
+-      </provider>
+-    </entry>
+-    <entry file="file://$USER_HOME$/AndroidSDK/platforms/android-26/data/res/drawable-hdpi/ic_menu_edit.png">
+-      <provider selected="true" editor-type-id="images">
+-        <state />
+-      </provider>
+-    </entry>
+-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/negocio/controlador/OximetriaController.java">
+-      <provider selected="true" editor-type-id="text-editor">
+-        <state relative-caret-position="102">
+-          <caret line="6" column="32" lean-forward="false" selection-start-line="6" selection-start-column="32" selection-end-line="6" selection-end-column="32" />
+-        </state>
+-      </provider>
+-    </entry>
+     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_perfil_paciente.xml">
+       <provider selected="true" editor-type-id="android-designer2">
+         <state />
+@@ -2818,41 +2695,6 @@
+         </state>
+       </provider>
+     </entry>
+-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/negocio/controlador/ParentController.java">
+-      <provider selected="true" editor-type-id="text-editor">
+-        <state relative-caret-position="102">
+-          <caret line="19" column="27" lean-forward="true" selection-start-line="19" selection-start-column="27" selection-end-line="19" selection-end-column="27" />
+-        </state>
+-      </provider>
+-    </entry>
+-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/negocio/controlador/PacienteController.java">
+-      <provider selected="true" editor-type-id="text-editor">
+-        <state relative-caret-position="51">
+-          <caret line="34" column="48" lean-forward="false" selection-start-line="34" selection-start-column="48" selection-end-line="34" selection-end-column="48" />
+-        </state>
+-      </provider>
+-    </entry>
+-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/negocio/dao/OximetriaDao.java">
+-      <provider selected="true" editor-type-id="text-editor">
+-        <state relative-caret-position="140">
+-          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+-        </state>
+-      </provider>
+-    </entry>
+-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/popup/Popup.java">
+-      <provider selected="true" editor-type-id="text-editor">
+-        <state relative-caret-position="-4">
+-          <caret line="15" column="16" lean-forward="false" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="16" />
+-        </state>
+-      </provider>
+-    </entry>
+-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/popup/PopPaciente.java">
+-      <provider selected="true" editor-type-id="text-editor">
+-        <state relative-caret-position="45">
+-          <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+-        </state>
+-      </provider>
+-    </entry>
+     <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/dispositivos/OximeterActivity.java">
+       <provider selected="true" editor-type-id="text-editor">
+         <state relative-caret-position="187">
+@@ -2861,15 +2703,15 @@
+       </provider>
+     </entry>
+     <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+-      <provider editor-type-id="android-manifest">
+-        <state />
+-      </provider>
+       <provider selected="true" editor-type-id="text-editor">
+         <state relative-caret-position="68">
+           <caret line="28" column="54" lean-forward="false" selection-start-line="28" selection-start-column="54" selection-end-line="28" selection-end-column="54" />
+           <folding />
+         </state>
+       </provider>
++      <provider editor-type-id="android-manifest">
++        <state />
++      </provider>
+     </entry>
+     <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/servicio/SampleGattAttributes.java">
+       <provider selected="true" editor-type-id="text-editor">
+@@ -3044,50 +2886,79 @@
+         </state>
+       </provider>
+     </entry>
+-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/OximeterView.java">
++    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_perfil_paciente.xml">
++      <provider selected="true" editor-type-id="android-designer2">
++        <state />
++      </provider>
++      <provider editor-type-id="text-editor">
++        <state relative-caret-position="68">
++          <caret line="22" column="42" lean-forward="false" selection-start-line="22" selection-start-column="42" selection-end-line="22" selection-end-column="42" />
++          <folding />
++        </state>
++      </provider>
++    </entry>
++    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_oximeter_view.xml">
++      <provider selected="true" editor-type-id="android-designer2">
++        <state />
++      </provider>
++      <provider editor-type-id="text-editor">
++        <state relative-caret-position="89">
++          <caret line="14" column="20" lean-forward="false" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
++          <folding />
++        </state>
++      </provider>
++    </entry>
++    <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/servicio/ServiOximeter.java" />
++    <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/negocio/modelos/bd/PacienteRoom.java">
+       <provider selected="true" editor-type-id="text-editor">
+-        <state relative-caret-position="178">
+-          <caret line="181" column="89" lean-forward="false" selection-start-line="181" selection-start-column="89" selection-end-line="181" selection-end-column="89" />
+-          <folding>
+-            <element signature="e#1968#2000#0" expanded="true" />
+-            <element signature="e#2855#2887#0" expanded="true" />
+-          </folding>
++        <state relative-caret-position="-68">
++          <caret line="13" column="45" lean-forward="false" selection-start-line="13" selection-start-column="45" selection-end-line="13" selection-end-column="45" />
++          <folding />
+         </state>
+       </provider>
+     </entry>
+-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/PerfilPaciente.java">
++    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
+       <provider selected="true" editor-type-id="text-editor">
+-        <state relative-caret-position="187">
+-          <caret line="36" column="68" lean-forward="false" selection-start-line="36" selection-start-column="68" selection-end-line="36" selection-end-column="68" />
++        <state relative-caret-position="170">
++          <caret line="31" column="42" lean-forward="false" selection-start-line="31" selection-start-column="17" selection-end-line="31" selection-end-column="42" />
+           <folding />
+         </state>
+       </provider>
+     </entry>
+-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/VistaPaciente.java">
++    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/popup_registro_paciente.xml">
++      <provider editor-type-id="android-designer2">
++        <state />
++      </provider>
+       <provider selected="true" editor-type-id="text-editor">
+-        <state relative-caret-position="153">
+-          <caret line="123" column="31" lean-forward="false" selection-start-line="123" selection-start-column="31" selection-end-line="123" selection-end-column="31" />
+-          <folding>
+-            <element signature="e#2555#2587#0" expanded="true" />
+-          </folding>
++        <state relative-caret-position="214">
++          <caret line="96" column="50" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="120" selection-end-column="0" />
++          <folding />
+         </state>
+       </provider>
+     </entry>
+-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/negocio/modelos/bd/PacienteRoom.java">
++    <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/popup/Popup.java">
+       <provider selected="true" editor-type-id="text-editor">
+-        <state relative-caret-position="-68">
+-          <caret line="13" column="45" lean-forward="false" selection-start-line="13" selection-start-column="45" selection-end-line="13" selection-end-column="45" />
++        <state relative-caret-position="274">
++          <caret line="29" column="23" lean-forward="true" selection-start-line="23" selection-start-column="7" selection-end-line="29" selection-end-column="23" />
+           <folding />
+         </state>
+       </provider>
+     </entry>
+-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_perfil_paciente.xml">
++    <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/popup/PopPaciente.java">
++      <provider selected="true" editor-type-id="text-editor">
++        <state relative-caret-position="232">
++          <caret line="39" column="10" lean-forward="false" selection-start-line="39" selection-start-column="10" selection-end-line="39" selection-end-column="10" />
++          <folding />
++        </state>
++      </provider>
++    </entry>
++    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/popup_registro_oximetria.xml">
+       <provider selected="true" editor-type-id="android-designer2">
+         <state />
+       </provider>
+       <provider editor-type-id="text-editor">
+-        <state relative-caret-position="68">
+-          <caret line="22" column="42" lean-forward="false" selection-start-line="22" selection-start-column="42" selection-end-line="22" selection-end-column="42" />
++        <state relative-caret-position="185">
++          <caret line="93" column="53" lean-forward="true" selection-start-line="93" selection-start-column="53" selection-end-line="93" selection-end-column="53" />
+           <folding />
+         </state>
+       </provider>
+@@ -3097,53 +2968,170 @@
+         <state />
+       </provider>
+       <provider editor-type-id="text-editor">
+-        <state relative-caret-position="166">
++        <state relative-caret-position="2108">
+           <caret line="124" column="39" lean-forward="false" selection-start-line="124" selection-start-column="39" selection-end-line="124" selection-end-column="39" />
+           <folding />
+         </state>
+       </provider>
+     </entry>
+-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_oximeter_view.xml">
++    <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/negocio/controlador/ParentController.java">
++      <provider selected="true" editor-type-id="text-editor">
++        <state relative-caret-position="238">
++          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
++          <folding />
++        </state>
++      </provider>
++    </entry>
++    <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/popup/PopRegistro.java">
++      <provider selected="true" editor-type-id="text-editor">
++        <state relative-caret-position="425">
++          <caret line="37" column="0" lean-forward="false" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
++          <folding>
++            <element signature="imports" expanded="true" />
++          </folding>
++        </state>
++      </provider>
++    </entry>
++    <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/listas/PacientesList.java">
++      <provider selected="true" editor-type-id="text-editor">
++        <state relative-caret-position="199">
++          <caret line="51" column="9" lean-forward="false" selection-start-line="37" selection-start-column="7" selection-end-line="51" selection-end-column="9" />
++          <folding />
++        </state>
++      </provider>
++    </entry>
++    <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/negocio/controlador/PacienteController.java">
++      <provider selected="true" editor-type-id="text-editor">
++        <state relative-caret-position="114">
++          <caret line="100" column="5" lean-forward="false" selection-start-line="77" selection-start-column="4" selection-end-line="100" selection-end-column="5" />
++          <folding />
++        </state>
++      </provider>
++    </entry>
++    <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/OximeterView.java">
++      <provider selected="true" editor-type-id="text-editor">
++        <state relative-caret-position="-187">
++          <caret line="32" column="13" lean-forward="false" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
++          <folding />
++        </state>
++      </provider>
++    </entry>
++    <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/OximeterList.java">
++      <provider selected="true" editor-type-id="text-editor">
++        <state relative-caret-position="216">
++          <caret line="32" column="40" lean-forward="false" selection-start-line="32" selection-start-column="40" selection-end-line="32" selection-end-column="40" />
++          <folding>
++            <element signature="e#1034#1066#0" expanded="true" />
++          </folding>
++        </state>
++      </provider>
++    </entry>
++    <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/listas/ParentList.java">
++      <provider selected="true" editor-type-id="text-editor">
++        <state relative-caret-position="21">
++          <caret line="12" column="32" lean-forward="false" selection-start-line="12" selection-start-column="22" selection-end-line="12" selection-end-column="32" />
++          <folding />
++        </state>
++      </provider>
++    </entry>
++    <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/negocio/controlador/OximetriaController.java">
++      <provider selected="true" editor-type-id="text-editor">
++        <state relative-caret-position="157">
++          <caret line="102" column="64" lean-forward="false" selection-start-line="102" selection-start-column="64" selection-end-line="102" selection-end-column="64" />
++          <folding>
++            <element signature="imports" expanded="true" />
++          </folding>
++        </state>
++      </provider>
++    </entry>
++    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/item_oximetria.xml">
+       <provider selected="true" editor-type-id="android-designer2">
+         <state />
+       </provider>
+       <provider editor-type-id="text-editor">
+-        <state relative-caret-position="89">
+-          <caret line="14" column="20" lean-forward="false" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
++        <state relative-caret-position="129">
++          <caret line="23" column="24" lean-forward="false" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="24" />
+           <folding />
+         </state>
+       </provider>
+     </entry>
+-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
++    <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/negocio/dao/OximetriaDao.java">
+       <provider selected="true" editor-type-id="text-editor">
+-        <state relative-caret-position="170">
+-          <caret line="31" column="42" lean-forward="false" selection-start-line="31" selection-start-column="17" selection-end-line="31" selection-end-column="42" />
++        <state relative-caret-position="136">
++          <caret line="15" column="4" lean-forward="false" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="4" />
+           <folding />
+         </state>
+       </provider>
+     </entry>
+-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/LoginActivity.java">
++    <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/listas/OximetriasList.java">
+       <provider selected="true" editor-type-id="text-editor">
+-        <state relative-caret-position="440">
+-          <caret line="116" column="48" lean-forward="false" selection-start-line="116" selection-start-column="48" selection-end-line="116" selection-end-column="48" />
+-          <folding />
++        <state relative-caret-position="310">
++          <caret line="51" column="0" lean-forward="false" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
++          <folding>
++            <element signature="imports" expanded="true" />
++            <element signature="e#935#936#0" expanded="true" />
++            <element signature="e#959#960#0" expanded="true" />
++          </folding>
+         </state>
+       </provider>
+     </entry>
+     <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/negocio/session/Oximetria.java">
+       <provider selected="true" editor-type-id="text-editor">
+-        <state relative-caret-position="567">
+-          <caret line="53" column="23" lean-forward="false" selection-start-line="53" selection-start-column="23" selection-end-line="53" selection-end-column="23" />
++        <state relative-caret-position="242">
++          <caret line="45" column="41" lean-forward="false" selection-start-line="45" selection-start-column="41" selection-end-line="45" selection-end-column="41" />
+           <folding>
+             <element signature="imports" expanded="true" />
+           </folding>
+         </state>
+       </provider>
+     </entry>
+-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/servicio/ServiOximeter.java">
++    <entry file="file://$PROJECT_DIR$/app/build/generated/source/apt/debug/ponny/org/democampains/negocio/dao/OximetriaDao_Impl.java">
+       <provider selected="true" editor-type-id="text-editor">
+-        <state relative-caret-position="204">
+-          <caret line="13" column="51" lean-forward="false" selection-start-line="13" selection-start-column="51" selection-end-line="13" selection-end-column="51" />
++        <state relative-caret-position="106">
++          <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
++          <folding />
++        </state>
++      </provider>
++    </entry>
++    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_oximeter_list.xml">
++      <provider selected="true" editor-type-id="android-designer2">
++        <state />
++      </provider>
++      <provider editor-type-id="text-editor">
++        <state relative-caret-position="0">
++          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
++          <folding />
++        </state>
++      </provider>
++    </entry>
++    <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/TelemedApp.java">
++      <provider selected="true" editor-type-id="text-editor">
++        <state relative-caret-position="151">
++          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
++          <folding />
++        </state>
++      </provider>
++    </entry>
++    <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/LoginActivity.java">
++      <provider selected="true" editor-type-id="text-editor">
++        <state relative-caret-position="206">
++          <caret line="116" column="48" lean-forward="false" selection-start-line="116" selection-start-column="48" selection-end-line="116" selection-end-column="48" />
++          <folding />
++        </state>
++      </provider>
++    </entry>
++    <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/VistaPaciente.java">
++      <provider selected="true" editor-type-id="text-editor">
++        <state relative-caret-position="183">
++          <caret line="153" column="51" lean-forward="false" selection-start-line="153" selection-start-column="51" selection-end-line="153" selection-end-column="51" />
++          <folding />
++        </state>
++      </provider>
++    </entry>
++    <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/PerfilPaciente.java">
++      <provider selected="true" editor-type-id="text-editor">
++        <state relative-caret-position="-301">
++          <caret line="57" column="0" lean-forward="false" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+           <folding />
+         </state>
+       </provider>
+Index: app/src/main/java/ponny/org/democampains/vistas/PerfilPaciente.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/ponny/org/democampains/vistas/PerfilPaciente.java	(date 1520718401000)
++++ app/src/main/java/ponny/org/democampains/vistas/PerfilPaciente.java	(revision )
+@@ -32,25 +32,28 @@
+     protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+         setContentView(R.layout.activity_perfil_paciente);
+-
+-            mensajes = new Mensajes(this);
+-            pacienteController = new PacienteController(this, null);
+-            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+-            setSupportActionBar(toolbar);
+-            Intent intent = this.getIntent();
+-            Bundle bundle = intent.getExtras();
++    try {
++        mensajes = new Mensajes(this);
++        pacienteController = new PacienteController(this, null);
++        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
++        setSupportActionBar(toolbar);
++        Intent intent = this.getIntent();
++        Bundle bundle = intent.getExtras();
+ 
+-            parentView = findViewById(R.id.contPefil);
+-            pacienteRoom = (PacienteRoom) bundle.getSerializable(getString(R.string.paciente_rom));
++        parentView = findViewById(R.id.contPefil);
++        pacienteRoom = (PacienteRoom) bundle.getSerializable(getString(R.string.paciente_rom));
+         cargarDatosPaciente();
+-            fab = (FloatingActionButton) findViewById(R.id.fabIconPerfil);
+-            fab.setOnClickListener(new View.OnClickListener() {
+-                @Override
+-                public void onClick(View view) {
+-                    actualizarPaciente();
+-                }
+-            });
+-
++        fab = (FloatingActionButton) findViewById(R.id.fabIconPerfil);
++        fab.setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(View view) {
++                actualizarPaciente();
++            }
++        });
++    }catch (Exception ex){
++        ex.printStackTrace();
++        Log.println(Log.ASSERT,"PERFIL",ex.getMessage());
++    }
+     }
+ 
+     private void cargarDatosPaciente()
+Index: app/src/main/java/ponny/org/democampains/vistas/VistaPaciente.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/ponny/org/democampains/vistas/VistaPaciente.java	(date 1520718401000)
++++ app/src/main/java/ponny/org/democampains/vistas/VistaPaciente.java	(revision )
+@@ -12,6 +12,7 @@
+ import android.os.Handler;
+ import android.support.annotation.NonNull;
+ import android.support.design.widget.BottomNavigationView;
++import android.support.design.widget.FloatingActionButton;
+ import android.support.v7.app.AppCompatActivity;
+ import android.util.Log;
+ import android.view.MenuItem;
+@@ -25,19 +26,22 @@
+ import ponny.org.democampains.negocio.session.Oximetria;
+ import ponny.org.democampains.servicio.ControlerBLE;
+ import ponny.org.democampains.vistas.popup.Mensajes;
++import ponny.org.democampains.vistas.popup.PopRegistro;
+ 
+ public class VistaPaciente extends AppCompatActivity {
+ 
+ 
+-
+     private PacienteRoom pacienteRoom;
+     private View parentView;
+     private static final long SCAN_PERIOD = 100000;
+     private Handler mHandlerScan;
+     private ControlerBLE controlerBLE;
++    private PopRegistro popRegistro;
+     private Mensajes mensajes;
+     private TextView textViewOximetriaLista;
+-    private ImageView oximetro,glucometro,tensiometro,bascula;
++    private ImageView oximetro, glucometro, tensiometro, bascula;
++    private FloatingActionButton guardarBtn;
++    private OximetriaRoom oximetriaRoom;
+     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+             = new BottomNavigationView.OnNavigationItemSelectedListener() {
+ 
+@@ -49,7 +53,7 @@
+                     irPaciente();
+                     return true;
+                 case R.id.navigation_dashboard:
+-                    irOximetria();
++                    irRegistros();
+                     return true;
+ 
+             }
+@@ -62,25 +66,26 @@
+         super.onCreate(savedInstanceState);
+         setContentView(R.layout.activity_vista_paciente);
+ 
++        guardarBtn = (FloatingActionButton) findViewById(R.id.imageViewSave);
+ 
+         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+ 
+-        parentView=findViewById(R.id.containerVistaPaciente);
++        parentView = findViewById(R.id.containerVistaPaciente);
+ 
+         Intent intent = this.getIntent();
+         Bundle bundle = intent.getExtras();
+ 
+         pacienteRoom = (PacienteRoom) bundle.getSerializable(getString(R.string.paciente_rom));
+-        textViewOximetriaLista=(TextView)findViewById(R.id.textViewOximetriaLista);
++        textViewOximetriaLista = (TextView) findViewById(R.id.textViewOximetriaLista);
+         textViewOximetriaLista.setText("");
+         TextView nombres = (TextView) findViewById(R.id.TextNombresPaciente);
+         nombres.setText(pacienteRoom.getNombres() + " " + pacienteRoom.getApellidos());
+         TextView descripccion = (TextView) findViewById(R.id.textViewDescripccionPaciente);
+         descripccion.setText(pacienteRoom.getDescripccion());
+-        mensajes=new Mensajes(this);
+-        mHandlerScan=new Handler();
+-        controlerBLE=new ControlerBLE(this, mensajes,pacienteRoom);
++        mensajes = new Mensajes(this);
++        mHandlerScan = new Handler();
++        controlerBLE = new ControlerBLE(this, mensajes, pacienteRoom);
+         activarBluetooth();
+ 
+         IntentFilter filter = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
+@@ -89,11 +94,12 @@
+         loadTextos();
+ 
+     }
+-    private void loadImages(){
+-        oximetro=(ImageView)findViewById(R.id.imageViewPulso);
+-        tensiometro=(ImageView)findViewById(R.id.imageViewTensiometro);
+-        glucometro=(ImageView)findViewById(R.id.imageViewGlucometro);
+-        bascula=(ImageView)findViewById(R.id.imageViewBascula);
++
++    private void loadImages() {
++        oximetro = (ImageView) findViewById(R.id.imageViewPulso);
++        tensiometro = (ImageView) findViewById(R.id.imageViewTensiometro);
++        glucometro = (ImageView) findViewById(R.id.imageViewGlucometro);
++        bascula = (ImageView) findViewById(R.id.imageViewBascula);
+         oximetro.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+@@ -118,20 +124,27 @@
+                 scanearDispositivo(true);
+             }
+         });
++        guardarBtn.setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(View v) {
++                cargarDialogoDeRegistro();
++            }
++        });
++
+     }
+-    private void loadTextos(){
++
++    private void loadTextos() {
+         try {
+             Oximetria oximetria = new Oximetria(this);
+             textViewOximetriaLista = (TextView) findViewById(R.id.textViewOximetriaLista);
+-            OximetriaRoom oximetriaRoom = oximetria.getOximetriaRoom();
++             oximetriaRoom = oximetria.getOximetriaRoom();
+             if (oximetriaRoom.getSpo2() == 0) {
+                 return;
+             }
+             textViewOximetriaLista.setText(oximetriaRoom.getSpo2() + "%");
+-        }catch (Exception ex)
+-        {
++        } catch (Exception ex) {
+             ex.printStackTrace();
+-            Log.println(Log.ASSERT,"SQL",ex.getMessage());
++            Log.println(Log.ASSERT, "SQL", ex.getMessage());
+         }
+     }
+ 
+@@ -147,6 +160,31 @@
+         }
+ 
+     }
++    private void irRegistros(){
++
++        try {
++            Intent intent = new Intent(this, OximeterList.class);
++            intent.putExtras(getExtras());
++            startActivity(intent);
++        } catch (Exception ex) {
++            Log.println(Log.ASSERT, "sql", ex.getMessage());
++            ex.printStackTrace();
++        }
++    }
++
++    private void cargarDialogoDeRegistro() {
++        try {
++            popRegistro = new PopRegistro(this, oximetriaRoom, pacienteRoom);
++            popRegistro.dialogoRegistroPaciente(parentView);
++        } catch (Exception ex)
++        {
++            ex.printStackTrace();
++
++            Log.println(Log.ASSERT,"SQL",ex.getMessage());
++
++            mensajes.generarSnack(parentView,R.string.no_registro);
++        }
++        }
+ 
+     private void irOximetria() {
+         try {
+@@ -172,6 +210,7 @@
+         scanearDispositivo(false);
+         unregisterReceiver(mReceiver);
+     }
++
+     private void activarBluetooth() {
+         Intent bleEnable = controlerBLE.verificacionBluetooth();
+         if (bleEnable != null)
+@@ -201,7 +240,7 @@
+                 switch (state) {
+                     case BluetoothAdapter.STATE_OFF:
+                         // Bluetooth has been turned off;
+-                        mensajes.generarSnack(parentView,R.string.bluetooth_activado_no);
++                        mensajes.generarSnack(parentView, R.string.bluetooth_activado_no);
+                         break;
+                     case BluetoothAdapter.STATE_TURNING_OFF:
+                         // Bluetooth is turning off;
+@@ -209,18 +248,18 @@
+                     case BluetoothAdapter.STATE_ON:
+                         // Bluetooth has been on
+                         // startActivityForResult(bleEnable, ControlerBLE.REQUEST_ENABLE_BT);
+-                        mensajes.generarSnack(parentView,R.string.bluetooth_activado);
+-                      //  activarBluetooth();
++                        mensajes.generarSnack(parentView, R.string.bluetooth_activado);
++                        //  activarBluetooth();
+                         break;
+                     case BluetoothAdapter.STATE_TURNING_ON:
+                         // Bluetooth is turning on
+-                        mensajes.generarSnack(parentView,R.string.bluetooth_activando);
++                        mensajes.generarSnack(parentView, R.string.bluetooth_activando);
+                         break;
+                 }
+             }
+         }
+     };
+-    public  BluetoothAdapter.LeScanCallback mLeScanCallback =
++    public BluetoothAdapter.LeScanCallback mLeScanCallback =
+             new BluetoothAdapter.LeScanCallback() {
+ 
+                 @Override
+@@ -230,8 +269,7 @@
+                         public void run() {
+                             //  Log.println(Log.ASSERT, "BLE", "Escaneando");
+                             try {
+-                                if(device.getName()==null)
+-                                {
++                                if (device.getName() == null) {
+                                     return;
+                                 }
+                                 Log.println(Log.ASSERT, "BLE", device.getName());
+@@ -242,7 +280,7 @@
+                                     controlerBLE.conectarDevice(device.getAddress(), device.getName());
+                                 }
+                             } catch (Exception ex) {
+-                                Log.println(Log.ASSERT,"BLE",ex.toString());
++                                Log.println(Log.ASSERT, "BLE", ex.toString());
+                                 ex.printStackTrace();
+                             }
+                         }
+@@ -257,7 +295,7 @@
+             mHandlerScan.postDelayed(controlerBLE.hiloScan, SCAN_PERIOD);
+ 
+             if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
+-                Log.println(Log.ASSERT,"ble","asignando scan");
++                Log.println(Log.ASSERT, "ble", "asignando scan");
+                 controlerBLE.getAdapter().startLeScan(mLeScanCallback);
+                 return;
+             }
+@@ -276,9 +314,9 @@
+     public void onBackPressed() {
+         try {
+             scanearDispositivo(false);
+-            super.onBackPressed();
+-        }catch (Exception ex){
+-            Log.println(Log.ASSERT,"BLE",ex.getMessage());
++            startActivity(new Intent(this,MainActivity.class));
++        } catch (Exception ex) {
++            Log.println(Log.ASSERT, "BLE", ex.getMessage());
+         }
+     }
+ 
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/AndroidManifest.xml	(date 1520718401000)
++++ app/src/main/AndroidManifest.xml	(revision )
+@@ -7,7 +7,6 @@
+     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+     <uses-permission android:name="android.permission.READ_PROFILE" />
+     <uses-permission android:name="android.permission.READ_CONTACTS" />
+-
+     <uses-permission android:name="android.permission.BLUETOOTH" />
+     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+ 
+@@ -25,6 +24,7 @@
+         <meta-data
+             android:name="AA_DB_VERSION"
+             android:value="5" />
++
+         <service
+             android:name=".servicio.BluetoothLeService"
+             android:enabled="true" />
+@@ -50,7 +50,8 @@
+             android:label="@string/title_activity_perfil_paciente"
+             android:theme="@style/AppTheme.NoActionBar" />
+         <activity android:name=".vistas.OximeterView" />
+-        <activity android:name=".vistas.dispositivos.OximeterActivity"></activity>
++        <activity android:name=".vistas.dispositivos.OximeterActivity" />
++        <activity android:name=".vistas.OximeterList"></activity>
+     </application>
+ 
+ </manifest>
+\ No newline at end of file
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/strings.xml	(date 1520718401000)
++++ app/src/main/res/values/strings.xml	(revision )
+@@ -48,4 +48,12 @@
+     <string name="caracteristica_oximetro">cdeacb81-5235-4c07-8846-93a37ee6b86d</string>
+     <string name="oxi_previa">Oxiprevia</string>
+     <string name="exito">Registro guardado</string>
++    <string name="guardar_registros">Registro de datos</string>
++    <string name="anotaciones">Sus anotaciones aquí</string>
++    <string name="registro_exito">Registro Guardado</string>
++    <string name="no_registro">No es posible realizar el registro</string>
++    <string name="fechaPulso">Fecha</string>
++    <string name="puslo">Pulso</string>
++    <string name="SPO2">Spo2</string>
++    <string name="PI">PI</string>
+ </resources>
+Index: app/src/main/java/ponny/org/democampains/negocio/session/Oximetria.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/ponny/org/democampains/negocio/session/Oximetria.java	(date 1520718401000)
++++ app/src/main/java/ponny/org/democampains/negocio/session/Oximetria.java	(revision )
+@@ -17,7 +17,7 @@
+     private String pulse="pulse";
+     private String pi="pi_ox";
+    private SharedPreferences preferences;
+-    private final String preferencias="preferencias";
++    private final String preferencias="oximetrias";
+ 
+     private OximetriaRoom oximetriaRoom;
+    private Context context;
+@@ -33,11 +33,14 @@
+     }
+     public boolean guardarOximetriaTemp(){
+         SharedPreferences.Editor editor = preferences.edit();
++       editor.clear();
+        editor.putLong(datatime,oximetriaRoom.getDatatime());
+        editor.putInt(spo2,oximetriaRoom.getSpo2());
+        editor.putInt(pulse,oximetriaRoom.getPulse());
+        editor.putFloat(pi, (float) oximetriaRoom.getPi());
+-       return  editor.commit();
++       boolean commit=editor.commit();
++       editor.apply();
++       return  commit;
+     }
+     public OximetriaRoom getOximetriaRoom(){
+         OximetriaRoom oximetriaRoom=new OximetriaRoom(
+Index: .idea/modules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/modules.xml	(date 1520718401000)
++++ .idea/modules.xml	(revision )
+@@ -3,6 +3,7 @@
+   <component name="ProjectModuleManager">
+     <modules>
+       <module fileurl="file://$PROJECT_DIR$/Nativo.iml" filepath="$PROJECT_DIR$/Nativo.iml" />
++      <module fileurl="file://C:\Users\Daniel\Downloads\Android\Android\Nativo\Nativo.iml" filepath="C:\Users\Daniel\Downloads\Android\Android\Nativo\Nativo.iml" />
+       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+     </modules>
+   </component>
+Index: app/src/main/java/ponny/org/democampains/negocio/controlador/OximetriaController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/ponny/org/democampains/negocio/controlador/OximetriaController.java	(date 1520718401000)
++++ app/src/main/java/ponny/org/democampains/negocio/controlador/OximetriaController.java	(revision )
+@@ -1,8 +1,113 @@
+ package ponny.org.democampains.negocio.controlador;
+ 
++import android.app.Dialog;
++import android.arch.persistence.room.Room;
++import android.content.Context;
++import android.os.AsyncTask;
++import android.util.Log;
++import android.view.View;
++import android.widget.ListView;
++
++import java.io.IOException;
++import java.util.ArrayList;
++import java.util.List;
++
++import ponny.org.democampains.R;
++import ponny.org.democampains.negocio.manager.AppDatabase;
++import ponny.org.democampains.negocio.modelos.bd.OximetriaRoom;
++import ponny.org.democampains.negocio.modelos.bd.PacienteRoom;
++import ponny.org.democampains.negocio.session.Oximetria;
++import ponny.org.democampains.vistas.listas.OximetriasList;
++import ponny.org.democampains.vistas.listas.PacientesList;
++import ponny.org.democampains.vistas.popup.Mensajes;
++
+ /**
+  * Created by Daniel on 09/03/2018.
+  */
+ 
+ public class OximetriaController {
++    private Context context;
++    private AppDatabase mDb;
++    private Mensajes mensajes;
++    private List<OximetriaRoom> list;
++    private ListView lista;
++
++    public OximetriaController(Context context, ListView lista) {
++        this.mDb = Room.databaseBuilder(context, AppDatabase.class, AppDatabase.class.getName()).build();
++        mensajes = new Mensajes(context);
++        this.context = context;
++        this.lista = lista;
++        list = new ArrayList<>();
++    }
++
++    public void insertar(final OximetriaRoom oximetriaRoom, final View parentView, final Dialog dialog) {
++        {
++            new AsyncTask<OximetriaRoom, Boolean, Boolean>() {
++
++                @Override
++                protected Boolean doInBackground(OximetriaRoom... OximetriaRoom) {
++                    try {
++                        oximetriaRoom.setDatatime(System.currentTimeMillis());
++                        mDb.oximetriaDao().insertAll(OximetriaRoom);
++                        //list.addAll(mDb.pacienteDao().getAll());
++                        //  mostrarListaToda();
++                        Log.println(Log.ASSERT, "SQL", list.size() + "");
++                        return true;
++                    } catch (Exception ex) {
++                        ex.printStackTrace();
++                        return false;
++                    }
++                }
++
++                @Override
++                protected void onPostExecute(Boolean aBoolean) {
++                    super.onPostExecute(aBoolean);
++                    if (aBoolean) {
++                        dialog.dismiss();
++                        mensajes.generarSnack(parentView, R.string.registro_exito);
++
++                    } else {
++                        mensajes.generarToast(R.string.paciente_no_exito);
++                    }
++                }
++
++            }.execute(oximetriaRoom);
++
++
++        }
++    }
++
++    public void mostrarListaToda(final String id) {
++        new AsyncTask<ListView, Void, List<OximetriaRoom>>() {
++
++            @Override
++            protected List<OximetriaRoom> doInBackground(ListView... listViews) {
++                try {
++                    list.clear();
++                    List<OximetriaRoom> oximetriaRooms = mDb.oximetriaDao().findByName(id);
++                    list.addAll(oximetriaRooms);
++                    Log.println(Log.ASSERT, "Lista", oximetriaRooms.size() + "");
++                } catch (Exception ex) {
++                    Log.println(Log.ASSERT, "sql", ex.getMessage());
++                }
++                return list;
++            }
++
++            @Override
++            protected void onPostExecute(List<OximetriaRoom> oximetriaRooms) {
++
++                super.onPostExecute(oximetriaRooms);
++
++                Log.println(Log.ASSERT, "Lista", "Generando lista" + "");
++                try {
++                    OximetriasList oximetriasList = new OximetriasList(context, oximetriaRooms);
++                   lista.setAdapter(oximetriasList);
++                } catch (Exception ex ) {
++                    ex.printStackTrace();
++                    Log.println(Log.ASSERT, "sql", ex.getMessage());
++                }
++            }
++        }.execute(lista);
++
++    }
+ }
+diff --git app/src/main/res/drawable-v24/pulsook.PNG app/src/main/res/drawable-v24/pulsook.PNG
+new file mode 100644
+index 0000000000000000000000000000000000000000..27be216ef4da301353c4123b8ca994b5752678ed
+GIT binary patch
+literal 38772
+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
+Ap8x;=
+

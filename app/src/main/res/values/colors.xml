@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <!--Colores pantalla MasterAplicativo-->
+    <color name="colorPaleta">#4FC3F7</color>
+    <color name="white_opaque">#FFFFFF</color>
+    <color name="colorTabwidget">#4FC3F7</color>
+
+
+    <!--Colores pantalla Login-->
+    <color name="txtSeleccionetipo">#addce4</color>
+    <color name="titulo_inicial">#FFED78</color>
+    <color name="texto_general">#80cbc4</color>
+
+    <!--Colores Listview-->
+    <color name="TitleLetras">#0091ea</color>
+    <color name="TitleSubTitle">#40C4FF</color>
+
+    <!--Colores Tab-->
+    <color name="colorTitlePaciente">#00bcd4</color>
+    <color name="colorBarraList">#64b5f6</color>
+    <color name="colorPulsoAlto">#81D4FA</color>
+    <color name="colorPulsoBajo">#039BE5</color>
+    <color name="coloSPO2">#00B8D4</color>
+    <color name="colorPulso">#80D8FF</color>
+    <color name="PI">#00BFA5</color>
+
+    <!--Colores Tab-->
+    <color name="tab_text_color">#ffffff</color>
+</resources>
