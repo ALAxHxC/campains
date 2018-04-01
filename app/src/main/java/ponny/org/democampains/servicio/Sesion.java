@@ -12,6 +12,6 @@ import ponny.org.democampains.negocio.modelos.bd.PacienteRoom;
 public class Sesion {
     public static OximetriaRoom oximetriaRoom=null;
     public static PacienteRoom pacienteRoom=null;
-    public static final SimpleDateFormat sdfCompleta = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    public static final SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 }
