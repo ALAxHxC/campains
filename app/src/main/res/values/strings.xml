@@ -75,4 +75,6 @@
     <string name="gluco_text">Glucometría</string>
     <string name="peso">Peso</string>
     <string name="cargando">Cargando...</string>
+    <string name="sesion">Sesión</string>
+    <string name="cerrar_sesion">Cerrar Sesión</string>
 </resources>

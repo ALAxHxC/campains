@@ -16,7 +16,7 @@ import ponny.org.democampains.negocio.modelos.bd.OximetriaRoom;
 import ponny.org.democampains.negocio.modelos.bd.PacienteRoom;
 import ponny.org.democampains.vistas.popup.PopupOximetria;
 
-import static ponny.org.democampains.servicio.Sesion.sdfCompleta;
+import static ponny.org.democampains.servicio.Sesion.formatoFecha;
 
 /**
  * Created by Daniel on 10/03/2018.
@@ -49,7 +49,7 @@ public class OximetriasList extends ParentList<OximetriaRoom> {
             TextView pulso = (TextView) convertView.findViewById(R.id.textViewPulsoItem);
             TextView spo2 = (TextView) convertView.findViewById(R.id.textViewSPO2Item);
             TextView pi = (TextView) convertView.findViewById(R.id.textViewPIItem);
-            idView.setText(sdfCompleta.format(oximetriaRoom.getDatatime()));
+            idView.setText(formatoFecha.format(oximetriaRoom.getDatatime()));
             pulso.setText(oximetriaRoom.getPulse() + "");
             pi.setText(oximetriaRoom.getPi() + "");
             spo2.setText(oximetriaRoom.getSpo2() + "");
