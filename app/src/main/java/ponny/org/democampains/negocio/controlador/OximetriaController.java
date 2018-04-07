@@ -30,6 +30,7 @@ import ponny.org.democampains.negocio.modelos.bd.OximetriaRoom;
 import ponny.org.democampains.negocio.modelos.bd.PacienteRoom;
 import ponny.org.democampains.negocio.session.Oximetria;
 import ponny.org.democampains.servicio.Sesion;
+import ponny.org.democampains.stadisticas.Statistics;
 import ponny.org.democampains.vistas.listas.OximetriasList;
 import ponny.org.democampains.vistas.listas.PacientesList;
 import ponny.org.democampains.vistas.popup.Mensajes;
@@ -197,6 +198,21 @@ public class OximetriaController {
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setGridColor(Color.CYAN);
+
+    }
+    public void caclulosOximetria(List<OximetriaRoom> list,TextView spo2Var, TextView avPulse, TextView avSPO2){
+        double[] spo2=new double[list.size()];
+        double[] pulse=new double[list.size()];
+
+        for(int i=0;i<list.size();i++){
+            spo2[i]=(double) list.get(i).getSpo2();
+            pulse[i]=(double) list.get(i).getPulse();
+        }
+        Statistics spo2Stat=new Statistics(spo2);
+        Statistics pulseStat=new Statistics(pulse);
+        avPulse.setText(""+pulseStat.median());
+        avSPO2.setText(""+spo2Stat.median());
+        spo2Var.setText(""+spo2Stat.getVariance());
 
     }
 }

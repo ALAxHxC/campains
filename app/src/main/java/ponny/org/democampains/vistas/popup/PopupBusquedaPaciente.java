@@ -1,11 +1,13 @@
 package ponny.org.democampains.vistas.popup;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -22,9 +24,12 @@ public class PopupBusquedaPaciente extends Popup {
     private Mensajes mensajes;
     private PacientesList pacientesList;
     private  ListView listView;
-    public PopupBusquedaPaciente(Context context) {
+    private View parentView;
+    private ProgressBar progressBar;
+    public PopupBusquedaPaciente(Context context,View parentView, ProgressBar progressBar) {
         super(context);
-
+        this.parentView=parentView;
+        this.progressBar=progressBar;
         mensajes=new Mensajes(context);
     }
 
@@ -44,6 +49,8 @@ public class PopupBusquedaPaciente extends Popup {
         dialog.show();
     }
     public void resultadosBusqueda(String identificacion,String nombres,Dialog dialog){
+        dialog.dismiss();
+        showdialog(true);
         Log.println(Log.ASSERT,"sql","Inicia busqueda paciente");
         List<PacienteRoom> pacientesListList=new ArrayList<>();
         for(PacienteRoom pacienteRoom: this.pacientesList.getList()){
@@ -61,11 +68,17 @@ public class PopupBusquedaPaciente extends Popup {
         }
         PacientesList pacientesList=new PacientesList(context,pacientesListList);
         listView.setAdapter(pacientesList);
-        dialog.dismiss();
+        showdialog(false);
     }
 
     @Override
     public void registrar(View view) {
 
     }
+    private void showdialog(boolean show){
+
+        progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+        parentView.setVisibility(show ? View.GONE : View.VISIBLE);
+    }
+
 }

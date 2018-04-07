@@ -1,5 +1,6 @@
 package ponny.org.democampains.vistas;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -15,8 +16,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import ponny.org.democampains.LoginActivity;
@@ -32,33 +35,35 @@ import ponny.org.democampains.vistas.popup.PopupBusquedaPaciente;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-private PopPaciente popPaciente;
-private PacienteController pacienteController;
-private ListView pacientes;
-private Usuario usuario;
-private Mensajes mensajes;
-private View layout;
-private PopupBusquedaPaciente busquedaPaciente;
+    private PopPaciente popPaciente;
+    private PacienteController pacienteController;
+    private ListView pacientes;
+    private Usuario usuario;
+    private Mensajes mensajes;
+    private View layout;
+    private ProgressBar progressBar;
+    private PopupBusquedaPaciente busquedaPaciente;
+    private Fragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        layout=(View)findViewById(R.id.drawer_layout);
+        layout = (View) findViewById(R.id.drawer_layout);
         Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        Sesion.pacienteRoom=null;
-        Sesion.oximetriaRoom=null;
+        Sesion.pacienteRoom = null;
+        Sesion.oximetriaRoom = null;
         setSupportActionBar(toolbar);
-    usuario=new Usuario(this);
-        pacientes=findViewById(R.id.listaPaciente);
-        pacienteController=new PacienteController(this,pacientes);
-        popPaciente=new PopPaciente(this,pacientes);
+        usuario = new Usuario(this);
+        progressBar = findViewById(R.id.mainprogress);
+        pacientes = findViewById(R.id.listaPaciente);
+        pacienteController = new PacienteController(this, pacientes);
+        popPaciente = new PopPaciente(this, pacientes);
         pacienteController.mostrarListaToda();
-        mensajes=new Mensajes(this);
-        mensajes.generarSnack(layout,R.string.cargando_datos);
-        busquedaPaciente=new PopupBusquedaPaciente(this);
+        mensajes = new Mensajes(this);
+        busquedaPaciente = new PopupBusquedaPaciente(this, layout, progressBar);
         loadData();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -75,14 +80,14 @@ private PopupBusquedaPaciente busquedaPaciente;
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
-
         toggle.syncState();
+
 
     }
 
     @Override
     public void onBackPressed() {
-
+        pacienteController.mostrarListaToda();
     }
 
     @Override
@@ -122,28 +127,34 @@ private PopupBusquedaPaciente busquedaPaciente;
 
         } else if (id == R.id.nav_manage) {
 
-        }  else if (id == R.id.logout) {
+        } else if (id == R.id.logout) {
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             usuario.setSession(false);
             if (drawer.isDrawerOpen(GravityCompat.START)) {
-                drawer.closeDrawer(GravityCompat.START);
+                drawer.closeDrawer(GravityCompat.END);
             }
-           startActivity(new Intent(this,LoginActivity.class));
+            startActivity(new Intent(this, LoginActivity.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        drawer.closeDrawer(GravityCompat.END);
         return true;
     }
-    private void loadData(){
+
+    private void loadData() {
         try {
           /*  TextView name = (TextView) findViewById(R.id.txtNameMedico);
             name.setText("Daniel Ortiz");
             TextView correo = (TextView) findViewById(R.id.textViewCorreoMedico);
             correo.setText(usuario.getUsuario());*/
-        }catch (Exception ex){
-            Log.println(Log.ASSERT,"SQL",ex.getMessage());
+        } catch (Exception ex) {
+            Log.println(Log.ASSERT, "SQL", ex.getMessage());
             ex.printStackTrace();
         }
-        }
+    }
+
+    public void mostrarProgress(boolean show) {
+        progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+        layout.setVisibility(show ? View.GONE : View.VISIBLE);
+    }
 }

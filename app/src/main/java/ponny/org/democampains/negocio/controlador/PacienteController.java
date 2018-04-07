@@ -17,6 +17,8 @@ import java.util.List;
 import ponny.org.democampains.R;
 import ponny.org.democampains.negocio.manager.AppDatabase;
 import ponny.org.democampains.negocio.modelos.bd.PacienteRoom;
+import ponny.org.democampains.vistas.MainActivity;
+import ponny.org.democampains.vistas.PerfilPaciente;
 import ponny.org.democampains.vistas.VistaPaciente;
 import ponny.org.democampains.vistas.listas.PacientesList;
 import ponny.org.democampains.vistas.popup.Mensajes;
@@ -83,6 +85,7 @@ public class PacienteController {
 
             @Override
             protected List<PacienteRoom> doInBackground(ListView... listViews) {
+
                 list.clear();
               List<PacienteRoom> pacienteRoomList=  mDb.pacienteDao().getAll();
               list.addAll(pacienteRoomList);
@@ -102,12 +105,13 @@ public class PacienteController {
         }.execute(lista);
 
     }
-    public void actualizarPaciente(final Activity activity, final PacienteRoom pacienteRoom, final View parentView){
+    public void actualizarPaciente(final MainActivity activity, final PacienteRoom pacienteRoom, final View parentView){
         new AsyncTask<PacienteRoom,Void,Integer>(){
 
 
             @Override
             protected Integer doInBackground(PacienteRoom... pacienteRooms) {
+       //     activity.mostrarProgress(true);
              //  mensajes.showProgress(activity);
              int actualiza=  mDb.pacienteDao().updatePaciente(pacienteRoom);
                 return actualiza;
@@ -119,9 +123,40 @@ public class PacienteController {
              //   mensajes.hideProgressBar(activity);
                 if(integer>0)
                 {
+                    activity.mostrarProgress(true);
+                mensajes.generarSnack(parentView,R.string.actualizo);
+
+                }else{
+                    activity.mostrarProgress(false);
+                   mensajes.generarSnack(parentView,R.string.no_actualizo);
+                }
+
+            }
+        }.execute(pacienteRoom);
+    }
+    public void actualizarPacientePefil(final PerfilPaciente activity, final PacienteRoom pacienteRoom, final View parentView){
+        new AsyncTask<PacienteRoom,Void,Integer>(){
+
+
+            @Override
+            protected Integer doInBackground(PacienteRoom... pacienteRooms) {
+           //     activity.mostrarProgress(true);
+                //  mensajes.showProgress(activity);
+                int actualiza=  mDb.pacienteDao().updatePaciente(pacienteRoom);
+                return actualiza;
+            }
+
+            @Override
+            protected void onPostExecute(Integer integer) {
+                super.onPostExecute(integer);
+                //   mensajes.hideProgressBar(activity);
+                if(integer>0)
+                {
+                  //  activity.mostrarProgress(true);
                     mensajes.generarSnack(parentView,R.string.actualizo);
 
                 }else{
+                  //  activity.mostrarProgress(false);
                     mensajes.generarSnack(parentView,R.string.no_actualizo);
                 }
 
