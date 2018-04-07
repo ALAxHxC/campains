@@ -94,7 +94,7 @@ public class OximetriaController {
         }
     }
 
-    public synchronized void mostrarListaToda(final String id,  final LineChart lineChartOximetro, final LineChart lineChartPulso) {
+    public synchronized void mostrarListaToda(final String id,  final LineChart lineChartOximetro, final LineChart lineChartPulso,final TextView spo2Var, final TextView avPulse,final TextView avSPO2) {
         new AsyncTask<ListView, Void, List<OximetriaRoom>>() {
 
             @Override
@@ -118,11 +118,14 @@ public class OximetriaController {
             protected void onPostExecute(List<OximetriaRoom> oximetriaRooms) {
 
                 super.onPostExecute(oximetriaRooms);
-
+                if(oximetriaRooms.size()<=0){mensajes.generarToast(R.string.no_resultados);
+                return;
+                }
                 Log.println(Log.ASSERT, "Lista", "Generando lista" + "");
                 try {
                     OximetriasList oximetriasList = new OximetriasList(context, oximetriaRooms);
                    lista.setAdapter(oximetriasList);
+                    caclulosOximetria(oximetriaRooms,spo2Var,avPulse,avSPO2);
                     cargarLineDataOximetria(lineChartOximetro,oximetriaRooms);
                     cargarLineDataPulso(lineChartPulso,oximetriaRooms);
                 } catch (Exception ex ) {

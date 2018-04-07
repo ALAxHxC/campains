@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TabHost;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.charts.LineChart;
@@ -30,7 +31,9 @@ public class OximeterList extends AppCompatActivity {
     private TabHost tabshost;
     private TabHost.TabSpec pulso, spo2, registros ;
     private LineChart lineChartPulso, lineChartOximetro;
-
+    private TextView spo2Var;
+    private TextView avPulse;
+    private TextView avSPO2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +42,9 @@ public class OximeterList extends AppCompatActivity {
 
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
-
+        avSPO2=findViewById(R.id.textViewSPO2View);
+        avPulse=findViewById(R.id.textViewPusloAltoView);
+        spo2Var=findViewById(R.id.textViewPulsoBajoView);
        parentView = findViewById(R.id.contPefil);
         CargarHost();
         configPulsoChart();
@@ -47,7 +52,7 @@ public class OximeterList extends AppCompatActivity {
         listView=(ListView)findViewById(R.id.listOximetrias);
         try {
             oximetriaController=new OximetriaController(this,listView);
-            oximetriaController.mostrarListaToda(pacienteRoom.getIdentificacion(), lineChartOximetro,lineChartPulso);
+            oximetriaController.mostrarListaToda(pacienteRoom.getIdentificacion(), lineChartOximetro,lineChartPulso,spo2Var,avPulse,avSPO2);
 
         }
       catch (Exception ex){
