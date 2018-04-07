@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="cargando_datos" type="id">Cargando datos</item>
+    <item name="buscando_oxi" type="id">Buscando Oximetro</item>
+    <item name="no_resultados" type="id">No hay coincidencias</item>
+</resources>

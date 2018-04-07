@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.text.Layout;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -24,7 +25,10 @@ import ponny.org.democampains.error.ExceptionHandler;
 import ponny.org.democampains.negocio.controlador.PacienteController;
 import ponny.org.democampains.negocio.session.Usuario;
 import ponny.org.democampains.servicio.Sesion;
+import ponny.org.democampains.vistas.listas.PacientesList;
+import ponny.org.democampains.vistas.popup.Mensajes;
 import ponny.org.democampains.vistas.popup.PopPaciente;
+import ponny.org.democampains.vistas.popup.PopupBusquedaPaciente;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -32,11 +36,15 @@ private PopPaciente popPaciente;
 private PacienteController pacienteController;
 private ListView pacientes;
 private Usuario usuario;
+private Mensajes mensajes;
+private View layout;
+private PopupBusquedaPaciente busquedaPaciente;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        layout=(View)findViewById(R.id.drawer_layout);
         Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
@@ -48,7 +56,11 @@ private Usuario usuario;
         pacienteController=new PacienteController(this,pacientes);
         popPaciente=new PopPaciente(this,pacientes);
         pacienteController.mostrarListaToda();
+        mensajes=new Mensajes(this);
+        mensajes.generarSnack(layout,R.string.cargando_datos);
+        busquedaPaciente=new PopupBusquedaPaciente(this);
         loadData();
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,6 +101,7 @@ private Usuario usuario;
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            busquedaPaciente.generarDialogo(pacientes);
             return true;
         }
 

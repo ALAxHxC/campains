@@ -87,4 +87,10 @@ public class PacientesList extends ParentList<PacienteRoom> {
         };
 
     }
+    public  List<PacienteRoom> getList(){
+        return lista;
+    }
+    public void getList( List<PacienteRoom> list){
+        this.lista=list;
+    }
 }

@@ -20,6 +20,7 @@ import ponny.org.democampains.negocio.modelos.bd.PacienteRoom;
 import ponny.org.democampains.vistas.VistaPaciente;
 import ponny.org.democampains.vistas.listas.PacientesList;
 import ponny.org.democampains.vistas.popup.Mensajes;
+import ponny.org.democampains.vistas.popup.PopupBusquedaPaciente;
 
 /**
  * Created by Daniel on 06/03/2018.
@@ -31,12 +32,13 @@ public class PacienteController {
     private Mensajes mensajes;
     private List<PacienteRoom> list;
     private ListView lista;
-    public PacienteController(Context context,ListView lista) {
+    public PacienteController(Context context, ListView lista) {
         this.mDb = Room.databaseBuilder(context,AppDatabase.class, AppDatabase.class.getName()).build();
         mensajes=new Mensajes(context);
         this.context=context;
         this.lista=lista;
         list=new ArrayList<>();
+
     }
 
     public void insertar(PacienteRoom pacienteRoom, final View parentView, final Dialog dialog) {
@@ -94,6 +96,7 @@ public class PacienteController {
                 Log.println(Log.ASSERT,"Lista","Generando lista"+"");
                 PacientesList pacientesList=new PacientesList(context,pacienteRooms);
                 pacientesList.notifyDataSetChanged();
+
                 lista.setAdapter(pacientesList);
             }
         }.execute(lista);

@@ -138,6 +138,7 @@ public class VistaPaciente extends AppCompatActivity {
         oximetro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mostrarDipositivoBusqueda(R.string.buscando_oxi);
                 scanearDispositivo(true);
             }
         });
@@ -201,7 +202,7 @@ public class VistaPaciente extends AppCompatActivity {
                 mensajes.generarSnack(parentView,R.string.no_hay_registros);
                 return;
             }
-            popRegistro = new PopRegistro(this, Sesion.oximetriaRoom, pacienteRoom);
+            popRegistro = new PopRegistro(this, Sesion.oximetriaRoom, pacienteRoom,textViewOximetriaLista);
             popRegistro.dialogoRegistroPaciente(parentView);
         } catch (Exception ex)
         {
@@ -363,6 +364,8 @@ public class VistaPaciente extends AppCompatActivity {
             imageView.setImageResource(R.drawable.profile65);
         }
     }
-
+    private void mostrarDipositivoBusqueda(int id){
+        mensajes.generarSnack(parentView,id);
+    }
 
 }

@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -28,6 +29,7 @@ import ponny.org.democampains.negocio.manager.AppDatabase;
 import ponny.org.democampains.negocio.modelos.bd.OximetriaRoom;
 import ponny.org.democampains.negocio.modelos.bd.PacienteRoom;
 import ponny.org.democampains.negocio.session.Oximetria;
+import ponny.org.democampains.servicio.Sesion;
 import ponny.org.democampains.vistas.listas.OximetriasList;
 import ponny.org.democampains.vistas.listas.PacientesList;
 import ponny.org.democampains.vistas.popup.Mensajes;
@@ -51,7 +53,7 @@ public class OximetriaController {
         list = new ArrayList<>();
     }
 
-    public synchronized void insertar(final OximetriaRoom oximetriaRoom, final View parentView, final Dialog dialog) {
+    public synchronized void insertar(final OximetriaRoom oximetriaRoom, final View parentView, final Dialog dialog, final TextView textView) {
         {
             new AsyncTask<OximetriaRoom, Boolean, Boolean>() {
 
@@ -63,6 +65,7 @@ public class OximetriaController {
                         //list.addAll(mDb.pacienteDao().getAll());
                         //  mostrarListaToda();
                         Log.println(Log.ASSERT, "SQL", list.size() + "");
+                        dialog.dismiss();
                         return true;
                     } catch (Exception ex) {
                         ex.printStackTrace();
@@ -74,7 +77,9 @@ public class OximetriaController {
                 protected void onPostExecute(Boolean aBoolean) {
                     super.onPostExecute(aBoolean);
                     if (aBoolean) {
-                        dialog.dismiss();
+
+                        Sesion.oximetriaRoom=null;
+                        textView.setText("");
                         mensajes.generarSnack(parentView, R.string.registro_exito);
 
                     } else {

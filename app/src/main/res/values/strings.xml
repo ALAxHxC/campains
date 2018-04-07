@@ -77,4 +77,9 @@
     <string name="cargando">Cargando...</string>
     <string name="sesion">Sesión</string>
     <string name="cerrar_sesion">Cerrar Sesión</string>
+    <string name="cargando_datos">Cargando Datos..</string>
+    <string name="buscando_oxi">Buscando Oximetro</string>
+    <string name="buscar_paciente">Buscar Paciente</string>
+    <string name="buscar">Buscar...</string>
+    <string name="no_resultados">No hay coincidencias</string>
 </resources>
