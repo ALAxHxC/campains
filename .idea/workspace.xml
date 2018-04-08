@@ -17,9 +17,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="717a6277-c183-4e0f-8710-00c15eb437d0" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/negocio/controlador/OximetriaController.java" afterPath="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/negocio/controlador/OximetriaController.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/OximeterList.java" afterPath="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/OximeterList.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/layout_listaoximetria.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/layout_listaoximetria.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -120,7 +118,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="OximetriaController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="OximetriaController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/negocio/controlador/OximetriaController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="137">
@@ -138,7 +136,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="layout_listaoximetria.xml" pinned="false" current-in-tab="false">
+      <file leaf-file-name="layout_listaoximetria.xml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/layout_listaoximetria.xml">
           <provider editor-type-id="text-editor">
             <state relative-caret-position="119">
@@ -2291,9 +2289,9 @@
         <option value="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/stadisticas/Statistics.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/app_bar_main.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_perfil_paciente.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/layout_listaoximetria.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/OximeterList.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/negocio/controlador/OximetriaController.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/layout_listaoximetria.xml" />
       </list>
     </option>
   </component>
@@ -2394,7 +2392,7 @@
     <property name="DEBUGGABLE_PROCESS" value="ponny.org.democampains" />
     <property name="SHOW_ALL_PROCESSES" value="false" />
     <property name="DEBUGGER_ID" value="Auto" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1523133866921" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1523135682346" />
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -2847,7 +2845,14 @@
       <option name="project" value="LOCAL" />
       <updated>1523133524539</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Agregando metodos estadisticos">
+      <created>1523134090147</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1523134090147</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TodoView">
@@ -2861,7 +2866,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32767403" sideWeight="0.4969743" order="6" side_tool="false" content_ui="tabs" />
@@ -2966,7 +2970,8 @@
     <MESSAGE value="Cerrar Sesión agregado" />
     <MESSAGE value="buscar paciente" />
     <MESSAGE value="Cambios daniel" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cambios daniel" />
+    <MESSAGE value="Agregando metodos estadisticos" />
+    <option name="LAST_COMMIT_MESSAGE" value="Agregando metodos estadisticos" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -3427,17 +3432,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/layout_listaoximetria.xml">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ponny/org/democampains/vistas/OximeterList.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="402">
@@ -3460,6 +3454,17 @@
             <element signature="e#7267#7274#0" expanded="true" />
           </folding>
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/layout_listaoximetria.xml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
       </provider>
     </entry>
   </component>

@@ -71,7 +71,7 @@
             android:layout_height="30dp"
             android:layout_alignStart="@+id/textViewPusloAltoView"
             android:layout_centerVertical="true"
-            android:text="SP"
+            android:text="AVG"
             android:textAlignment="center"
             android:textColor="@color/white_opaque"
             android:textStyle="bold" />
@@ -96,7 +96,7 @@
             android:layout_alignParentEnd="true"
             android:layout_below="@+id/textViewPulsoBajoView"
             android:layout_marginEnd="32dp"
-            android:text="PA"
+            android:text="VAR"
             android:textAlignment="center"
             android:textColor="@color/white_opaque"
             android:textStyle="bold" />
@@ -107,7 +107,7 @@
             android:layout_height="30dp"
             android:layout_alignStart="@+id/textViewSPO2View"
             android:layout_below="@+id/textViewPusloAltoView"
-            android:text="PB"
+            android:text="AVG"
             android:textAlignment="center"
             android:textColor="@color/white_opaque"
             android:textStyle="bold" />
