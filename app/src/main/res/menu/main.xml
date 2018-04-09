@@ -6,4 +6,10 @@
         android:orderInCategory="100"
         android:title="@string/buscar"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/logout"
+        android:icon="@drawable/logout"
+        android:title="@string/cerrar_sesion"
+
+        />
 </menu>

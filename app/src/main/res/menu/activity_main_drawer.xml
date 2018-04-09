@@ -22,14 +22,6 @@
             android:title="Tools" />
     </group>
 
-    <item android:title="@string/sesion">
-        <menu>
-            <item
-                android:id="@+id/logout"
-                android:icon="@drawable/logout"
-                android:title="@string/cerrar_sesion" />
 
-        </menu>
-    </item>
 
 </menu>

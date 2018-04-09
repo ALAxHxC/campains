@@ -17,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -43,15 +44,14 @@ public class MainActivity extends AppCompatActivity
     private View layout;
     private ProgressBar progressBar;
     private PopupBusquedaPaciente busquedaPaciente;
-    private Fragment fragment;
-
+    private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         layout = (View) findViewById(R.id.drawer_layout);
         Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         Sesion.pacienteRoom = null;
         Sesion.oximetriaRoom = null;
@@ -79,10 +79,15 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        drawer.addDrawerListener(toggle);
 
+
+
+    }
+    public void cerrarSesion(){
+        startActivity(new Intent(this, LoginActivity.class));
     }
 
     @Override
@@ -102,12 +107,18 @@ public class MainActivity extends AppCompatActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+        Log.println(Log.ASSERT,"SQL","cerrar");
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             busquedaPaciente.generarDialogo(pacientes);
             return true;
+        }
+        if (id == R.id.logout) {
+            Log.println(Log.ASSERT,"SQL","CERRANDO SESION");
+            usuario.setSession(false);
+            startActivity(new Intent(this, LoginActivity.class));
         }
 
         return super.onOptionsItemSelected(item);
@@ -116,6 +127,7 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+        Log.println(Log.ASSERT,"SQL","drawer button");
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
@@ -127,13 +139,6 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_manage) {
 
-        } else if (id == R.id.logout) {
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-            usuario.setSession(false);
-            if (drawer.isDrawerOpen(GravityCompat.START)) {
-                drawer.closeDrawer(GravityCompat.END);
-            }
-            startActivity(new Intent(this, LoginActivity.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
