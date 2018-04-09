@@ -10,16 +10,13 @@
             android:title="Import" />
         <item
             android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:icon="@android:drawable/ic_menu_search"
+            android:title="@string/buscar" />
         <item
             android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:icon="@drawable/logout"
+            android:title="@string/cerrar_sesion"/>
+
     </group>
 
 

@@ -45,13 +45,15 @@ public class MainActivity extends AppCompatActivity
     private ProgressBar progressBar;
     private PopupBusquedaPaciente busquedaPaciente;
     private Toolbar toolbar;
+    private DrawerLayout drawer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         layout = (View) findViewById(R.id.drawer_layout);
         Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
-         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         Sesion.pacienteRoom = null;
         Sesion.oximetriaRoom = null;
@@ -76,19 +78,19 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        NavigationView navigationView = drawer.findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        toggle.syncState();
-
         drawer.addDrawerListener(toggle);
-
-
+        toggle.syncState();
+        navigationView.setNavigationItemSelectedListener(this);
 
     }
-    public void cerrarSesion(){
-        startActivity(new Intent(this, LoginActivity.class));
-    }
+
+    public void cerrarSesion() {
+        usuario.setSession(false);
+        startActivity(new Intent(this, LoginActivity.class));}
 
     @Override
     public void onBackPressed() {
@@ -107,7 +109,7 @@ public class MainActivity extends AppCompatActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        Log.println(Log.ASSERT,"SQL","cerrar");
+        Log.println(Log.ASSERT, "SQL", "cerrar");
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -116,9 +118,8 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
         if (id == R.id.logout) {
-            Log.println(Log.ASSERT,"SQL","CERRANDO SESION");
-            usuario.setSession(false);
-            startActivity(new Intent(this, LoginActivity.class));
+            Log.println(Log.ASSERT, "SQL", "CERRANDO SESION");
+            cerrarSesion();
         }
 
         return super.onOptionsItemSelected(item);
@@ -127,22 +128,22 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        Log.println(Log.ASSERT,"SQL","drawer button");
+        Log.println(Log.ASSERT, "SQL", "drawer button");
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
+            busquedaPaciente.generarDialogo(pacientes);
 
         } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
+            cerrarSesion();
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.END);
+        //DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawers();
+
         return true;
     }
 
