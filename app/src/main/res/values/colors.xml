@@ -30,4 +30,8 @@
 
     <!--Colores Tab-->
     <color name="tab_text_color">#ffffff</color>
+
+    <!--Colors backgroud list-->
+    <color name="listBackGround">#0091EA</color>
+
 </resources>

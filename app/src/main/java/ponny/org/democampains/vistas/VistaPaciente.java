@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import ponny.org.democampains.R;
 import ponny.org.democampains.error.ExceptionHandler;
 import ponny.org.democampains.negocio.modelos.bd.OximetriaRoom;
@@ -43,7 +44,7 @@ public class VistaPaciente extends AppCompatActivity {
     private ImageView oximetro, glucometro, tensiometro, bascula;
     private FloatingActionButton guardarBtn;
     private OximetriaRoom oximetriaRoom;
-    private ImageView imageView;
+    private CircleImageView cicleImageView;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -89,8 +90,9 @@ public class VistaPaciente extends AppCompatActivity {
         Log.println(Log.ASSERT,"SQL",ex.toString());
         pacienteRoom=Sesion.pacienteRoom;
     }
-        imageView=findViewById(R.id.imageView2);
-        loadProfiles(imageView);
+        cicleImageView=findViewById(R.id.imageView2);
+        cicleImageView.setLayerType(View.LAYER_TYPE_SOFTWARE,null);
+        loadProfiles(cicleImageView);
         textViewOximetriaLista = (TextView) findViewById(R.id.textViewOximetriaLista);
         textViewOximetriaLista.setText("");
         TextView nombres = (TextView) findViewById(R.id.TextNombresPaciente);
@@ -352,16 +354,16 @@ public class VistaPaciente extends AppCompatActivity {
         }
 
     }
-    private void loadProfiles(ImageView imageView){
+    private void loadProfiles(CircleImageView cicleImageView){
         if(pacienteRoom.getNombres().toLowerCase().contains("juan")){
-            imageView.setImageResource(R.drawable.profile67);
+            cicleImageView.setImageResource(R.drawable.profile67);
         }
         else if(pacienteRoom.getNombres().toLowerCase().contains("eliana")){
-            imageView.setImageResource(R.drawable.profile66);
+            cicleImageView.setImageResource(R.drawable.profile66);
         }
         else
         {
-            imageView.setImageResource(R.drawable.profile65);
+            cicleImageView.setImageResource(R.drawable.profile65);
         }
     }
     private void mostrarDipositivoBusqueda(int id){

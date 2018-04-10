@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white_opaque"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:background="@color/listBackGround"
         android:orientation="horizontal">
 
         <android.support.constraint.ConstraintLayout
@@ -18,45 +19,49 @@
             android:layout_weight="1">
 
             <TextView
-                android:id="@+id/textViewCC_list"
-                style="@style/editText"
+                android:id="@+id/textViewNames_list"
                 android:layout_width="183dp"
-                android:layout_height="42dp"
-                android:layout_marginTop="16dp"
+                android:layout_height="21dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="21dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="sans-serif"
                 android:text="TextView"
+                android:textAlignment="textStart"
+                android:textColor="@color/white_opaque"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.529"
+                app:layout_constraintStart_toEndOf="@+id/imageProfilePaciente"
+                app:layout_constraintTop_toBottomOf="@+id/textViewCC_list"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/textViewCC_list"
+                android:layout_width="183dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="sans-serif"
+                android:text="TextView"
+                android:textAlignment="textStart"
+                android:textColor="@color/white_opaque"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="@+id/textViewNames_list"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/textViewNames_list"
-                style="@style/editText"
-                android:layout_width="183dp"
-                android:layout_height="42dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/imageProfilePaciente"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="TextView"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.68"
-                app:layout_constraintStart_toEndOf="@+id/imageProfilePaciente"
-                app:layout_constraintTop_toBottomOf="@+id/textViewCC_list"
-                app:layout_constraintVertical_bias="0.428" />
-
-
-
-                <ImageView
-                    android:id="@+id/imageProfilePaciente"
-                    android:layout_width="96dp"
-                    android:layout_height="96dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:src="@drawable/profile65"></ImageView>
-
-
+                android:background="@color/listBackGround"
+                android:src="@drawable/profile65"
+                app:civ_border_color="#0091EA"
+                app:civ_border_width="3dp"
+                app:layout_constraintStart_toStartOf="parent" />
 
         </android.support.constraint.ConstraintLayout>
-
     </LinearLayout>
 </LinearLayout>
