@@ -29,7 +29,7 @@ import ponny.org.democampains.error.ExceptionHandler;
 import ponny.org.democampains.negocio.controlador.PacienteController;
 import ponny.org.democampains.negocio.session.Usuario;
 import ponny.org.democampains.servicio.Sesion;
-import ponny.org.democampains.vistas.listas.PacientesList;
+
 import ponny.org.democampains.vistas.popup.Mensajes;
 import ponny.org.democampains.vistas.popup.PopPaciente;
 import ponny.org.democampains.vistas.popup.PopupBusquedaPaciente;

@@ -1,5 +1,6 @@
 package ponny.org.democampains.vistas;
 
+import android.Manifest;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -7,9 +8,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
@@ -68,6 +71,11 @@ public class VistaPaciente extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // We need to ask the user to grant permission. We've offloaded that to a different activity for clarity.
+            Log.println(Log.ASSERT,"BLE","BUSCANDO PERMISOS");
+            startActivity(new Intent(this, PermissionCheckActivity.class));
+        }
         setContentView(R.layout.activity_vista_paciente);
         Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
         guardarBtn = (FloatingActionButton) findViewById(R.id.imageViewSave);
@@ -298,9 +306,10 @@ public class VistaPaciente extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            //  Log.println(Log.ASSERT, "BLE", "Escaneando");
+                            Log.println(Log.ASSERT, "BLE", "Escaneando");
                             try {
                                 if (device.getName() == null) {
+                                    Log.println(Log.ASSERT, "BLE", "Device nulo");
                                     return;
                                 }
                                 Log.println(Log.ASSERT, "BLE", device.getName());
@@ -332,6 +341,7 @@ public class VistaPaciente extends AppCompatActivity {
             }
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                Log.println(Log.ASSERT,"BLE","asignando escan 6.0");
                 controlerBLE.getAdapter().getBluetoothLeScanner().startScan(controlerBLE.scanCallback());
             }
         } else {

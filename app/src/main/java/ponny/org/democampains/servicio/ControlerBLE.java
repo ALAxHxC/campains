@@ -171,8 +171,10 @@ public class ControlerBLE {
                 public void onScanResult(int callbackType, ScanResult result) {
                     super.onScanResult(callbackType, result);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        Log.println(Log.ASSERT,"BLE","DISPOSITIVO NULO");
                       if(result.getDevice().getName()==null){
-                      //  result.getScanRecord().getServiceUuids()
+                          Log.println(Log.ASSERT,"BLE","DISPOSITIVO NULO");
+                      Log.println(Log.ASSERT,"ble",  result.getScanRecord().getServiceUuids()+"");
                           return;
                       }
                         if (result.getDevice().getName().equalsIgnoreCase(mContext.getString(R.string.name_device))) {
@@ -184,6 +186,7 @@ public class ControlerBLE {
                 }
             });
         } else {
+            Log.println(Log.ASSERT,"BLE","DEVUELVE NULO");
             return null;
         }
     }

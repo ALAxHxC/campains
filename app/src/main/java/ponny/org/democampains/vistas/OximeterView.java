@@ -14,14 +14,14 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
-import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
-
+import android.support.v7.app.AppCompatActivity;
 import ponny.org.democampains.R;
 import ponny.org.democampains.error.ExceptionHandler;
 import ponny.org.democampains.negocio.controlador.OximetriaController;
@@ -32,6 +32,8 @@ import ponny.org.democampains.servicio.BluetoothLeService;
 import ponny.org.democampains.servicio.ControlerBLE;
 import ponny.org.democampains.servicio.Sesion;
 import ponny.org.democampains.vistas.popup.Mensajes;
+
+import static android.content.Context.BIND_AUTO_CREATE;
 
 public class OximeterView extends AppCompatActivity {
 
